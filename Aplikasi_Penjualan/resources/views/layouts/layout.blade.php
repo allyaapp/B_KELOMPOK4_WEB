@@ -86,13 +86,6 @@
 				<div class="row section_gap">
 					<div class="col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
-							<h4 class="footer_title large_title">Our Mission</h4>
-							<p>
-								Memperkenalkan produk asli Majalengka kepada Indonesia, dengan kualitas terbaik.
-							</p>
-							<p>
-								Memperkenalkan produk lokal dengan kualitas internasional.
-							</p>
 						</div>
 					</div>
 					<div class="offset-lg-1 col-lg-2 col-md-6 col-sm-6">

@@ -32,19 +32,6 @@
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
                                 <div class="form-group">
-                                    <label for="parent_id">Kategori</label>
-                                      <!-- VARIABLE $PARENT PADA METHOD INDEX KITA GUNAKAN DISINI -->
-                                    <!-- UNTUK MENAMPILKAN DATA CATEGORY YANG PARENT_ID NYA NULL -->
-                                    <!-- UNTUK DIPILIH SEBAGAI PARENT TAPI SIFATNYA OPTIONAL -->
-                                    <select name="parent_id" class="form-control">
-                                        <option value="">None</option>
-                                        @foreach ($parent as $row)
-                                        <option value="{{ $row->id }}">{{ $row->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <p class="text-danger">{{ $errors->first('name') }}</p>
-                                </div>
-                                <div class="form-group">
                                     <button class="btn btn-primary btn-sm">Tambah</button>
                                 </div>
                             </form>
