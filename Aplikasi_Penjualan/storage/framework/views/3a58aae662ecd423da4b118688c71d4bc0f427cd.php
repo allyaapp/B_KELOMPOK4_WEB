@@ -1,0 +1,2 @@
+
+<?php echo $__env->make('adminlte::auth.login', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\New folder\htdocs\Aplikasi_Penjualan\resources\views/auth/login.blade.php ENDPATH**/ ?>
