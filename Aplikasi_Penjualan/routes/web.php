@@ -29,7 +29,13 @@ Route::get('/category/{slug}', [FrontController::class,'categoryProduct'])->name
 Route::get('/product/{slug}', [FrontController::class, 'show'])->name('front.show_product');
 Route::get('/contact', function () {
     return view('costumer.contact');
+    Route::group(['middleware' => 'auth'], function () {
+        Route::get('profile', 'ProfileController@edit')->name('profile.edit');
+    });
+    
+
 });
+
 
 Route::get('/coba', function () {
     return view('costumer.cart');
@@ -89,7 +95,7 @@ Route::group(['middelware' => 'costumer'], function () {
     Route::get('/costumer/cart', [CartController::class, 'index'])->name('home.list_cart');
     Route::get('/costumer/checkout', [EcommerceOrderController::class, 'checkout'])->name('home.checkout');
     Route::post('/costumer/checkout', [EcommerceOrderController::class, 'processCheckout'])->name('home.checkoutproses');
-    // Route::post('/costumer/ongkir', [CartController::class, 'check_ongkir'])->name('home.cekongkir');
+    Route::post('/costumer/ongkir', [CartController::class, 'check_ongkir'])->name('home.cekongkir');
     Route::post('/costumer/cartadd', [CartController::class, 'addToCart'])->name('home.addcart');
     Route::patch('/costumer/cartupdate/{cart}', [CartController::class, 'updateCart'])->name('home.update_cart');
     Route::delete('/costumert/cart/delete/{id}', [CartController::class, 'destroy']);
@@ -101,10 +107,12 @@ Route::group(['middelware' => 'costumer'], function () {
     Route::post('/costummer/order/update/{id}', [EcommerceOrderController::class, 'update'])->name('home.order.update');
     Route::get('/costumer/pdf/{id}', [EcommerceOrderController::class, 'generatepdf'])->name('home.pdf');
 
-    // Route::get('/costumer/create', [CartController::class, 'coba'])->name('home.coba');
+    Route::get('/costumer/create', [CartController::class, 'coba'])->name('home.coba');
 
     Route::get('/cities/{id}', [CartController::class, 'getCity']);
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');;
+    Route::get('profil', 'UserController@index');
+    Route::get('setting', 'UserController@setting');
     
 });

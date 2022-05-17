@@ -16,15 +16,15 @@
       <div class="container">
         <div class="row no-gutters align-items-center pt-60px">
           <div class="col-5 d-none d-sm-block">
-            <div class="hero-banner__img">
-              <img class="img-fluid" src="{{asset('assets/img/home/hero-banner.png')}}" alt="">
+            <div class="blackshop">
+              <img class="img-fluid" src="{{asset('assets/img/home/blackshop.jpg')}}" alt="">
             </div>
           </div>
           <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
             <div class="hero-banner__content">
-              <h4>Shop is fun</h4>
-              <h1>Browse Our Premium Product</h1>
-              <p>Us which over of signs divide dominion deep fill bring they're meat beho upon own earth without morning over third. Their male dry. They are great appear whose land fly grass.</p>
+              <h4>Welcome to our website</h4>
+              <h1>Blackshop</h1>
+              <p>our website provides new and quality products, such as skincare, snacks and also outfits</p>
               <a class="button button-hero" href=" {{route('home.product')}} ">Browse Now</a>
             </div>
           </div>
@@ -34,7 +34,7 @@
     <!--================ Hero banner start =================-->
 
     <!--================ Hero Carousel start =================-->
-    <section class="section-margin mt-0">
+    <!-- <section class="section-margin mt-0">
       <div class="owl-carousel owl-theme hero-carousel">
         <div class="hero-carousel__slide">
           <img src="img/home/hero-slide1.png" alt="" class="img-fluid">
@@ -58,11 +58,11 @@
           </a>
         </div>
       </div>
-    </section>
+    </section> -->
     <!--================ Hero Carousel end =================-->
 
     <!-- ================ trending product section start ================= -->
-    <section class="section-margin calc-60px">
+    <!-- <section class="section-margin calc-60px">
       <div class="container">
         <div class="section-intro pb-60px">
           <p>Tampil trendi dengan produk terbaru kami.</p>
@@ -88,7 +88,7 @@
                 </div>
               </div>
             </div>
-          @endforeach
+          @endforeach -->
 
         </div>
       </div>

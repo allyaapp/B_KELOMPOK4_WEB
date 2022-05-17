@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class ProfileController extends Controller
 {
-    public function index()
+    /**
+     * Show the update profile page.
+     *
+     * @param  Request $request
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function edit(Request $request)
     {
-        $products = User::orderBy('created_at', 'DESC')->paginate(8);
-
-        return view('/admin', compact('products'));
+        return view('profile.edit', [
+            'admin' => $request->admin()
+        ]);
     }
 }
