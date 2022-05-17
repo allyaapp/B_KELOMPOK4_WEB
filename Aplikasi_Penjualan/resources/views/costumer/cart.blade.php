@@ -78,7 +78,7 @@
                                                 <input type="hidden" name="{{$row->id}}" value="{{$row->id}}">
                                                 <button onclick="var result = document.getElementById('sst{{$row->id}}'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
                                                     class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                                <button onclick="var result = document.getElementById('sst{{$row->id}}'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
+                                                <button onclick="var result = document.getElementById('sst{{$row->id}}'); var sst = result.value; if( !isNaN( sst ) &amp &amp  > 0 ) result.value--;return false;"
                                                     class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
                                             </div>
                                         </td>

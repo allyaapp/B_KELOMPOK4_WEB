@@ -105,4 +105,6 @@ Route::group(['middelware' => 'costumer'], function () {
 
     Route::get('/cities/{id}', [CartController::class, 'getCity']);
 
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');;
+    
 });

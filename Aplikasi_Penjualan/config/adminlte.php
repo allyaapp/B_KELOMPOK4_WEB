@@ -14,7 +14,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'Blackshop 1105',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +45,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>BlackShop</b',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'gag',
 
     /*
     |--------------------------------------------------------------------------
@@ -231,11 +231,11 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
+        // [
+        //     'text' => 'search',
+        //     'search' => true,
+        //     'topnav' => true,
+        // ],
         [
             'text' => 'blog',
             'url'  => 'admin/blog',
@@ -265,6 +265,11 @@ return [
             'icon' => 'fas fa-shopping-cart',
         ],
         [
+            'text' =>    'admin',
+            'url'  => 'admin',
+            'icon' => 'fas fa-user',
+        ],
+        [
             'text'    => 'Laporan',
             'icon'    => 'fas fa-calendar-check',
             'submenu' => [
@@ -273,13 +278,11 @@ return [
                     'url'  => 'order',
                     'icon'    => 'fas fa-puzzle-piece',
                 ],
-                // [
-                //     'text' => 'Return',
-                //     'url'  => '#',
-                //     'icon'    => 'fas fa-puzzle-piece',
-                // ],
+              
             ],
+         
         ],
+        
 
     ],
 

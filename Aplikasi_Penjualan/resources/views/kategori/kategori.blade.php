@@ -31,6 +31,7 @@
                                     <input type="text" name="name" class="form-control" required>
                                     <p class="text-danger">{{ $errors->first('name') }}</p>
                                 </div>
+                               
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-sm">Tambah</button>
                                 </div>
