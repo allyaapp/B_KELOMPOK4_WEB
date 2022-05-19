@@ -1,21 +1,13 @@
-<?php
+<?php 
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class AdminController extends Controller
 {
-    /**
-     * Show the update profile page.
-     *
-     * @param  Request $request
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function edit(Request $request)
-    {
-        return view('profile.edit', [
-            'admin' => $request->admin()
-        ]);
-    }
+   public function dashboard(){
+       return view('admin.admin_dashboard');
+   }
 }

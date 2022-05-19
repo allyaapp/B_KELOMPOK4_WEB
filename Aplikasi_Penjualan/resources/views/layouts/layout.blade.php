@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>Blackshop 1105</title>
+  <title>Aroma Shop - @yield('title')</title>
     {{-- <link rel="icon" href="img/Fevicon.png" type="image/png"> --}}
   <link rel="stylesheet" href="{{asset("assets/vendors/bootstrap/bootstrap.min.css")}}">
   <link rel="stylesheet" href="{{asset("assets/vendors/fontawesome/css/all.min.css")}}">
@@ -80,7 +80,7 @@
 
 
   <!--================ Start footer Area  =================-->
-	<!-- <footer class="footer">
+	<footer class="footer">
 		<div class="footer-area">
 			<div class="container">
 				<div class="row section_gap">
@@ -114,8 +114,8 @@
                                 @endforeach
 							</ul>
 						</div>
-					</div> -->
-					<!-- <div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
+					</div>
+					<div class="offset-lg-1 col-lg-3 col-md-6 col-sm-6">
 						<div class="single-footer-widget tp_widgets">
 							<h4 class="footer_title">Contact Us</h4>
 							<div class="ml-40">
@@ -125,7 +125,7 @@
 					</div>
 				</div>
 			</div>
-		</div> -->
+		</div>
 
 		<div class="footer-bottom">
 			<div class="container">
