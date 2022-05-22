@@ -65,22 +65,26 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Kategori</th>
-                                            <th>Parent</th>
+                                            <!-- <th>Parent</th> -->
                                             <th>Created At</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                        $no = 1;
+?>                            
                                       	<!-- LOOPING DATA KATEGORI SESUAI JUMLAH DATA YANG ADA DI VARIABLE $CATEGORY -->
                                         @forelse ($category as $val)
+                                 
                                         <tr>
-                                            <td></td>
+                                            <td>{{$no++}}</td>
                                             <td><strong>{{ $val->name }}</strong></td>
                                           
-                                          	<!-- MENGGUNAKAN TERNARY OPERATOR, UNTUK MENGECEK, JIKA $val->parent ADA MAKA TAMPILKAN NAMA PARENTNYA, SELAIN ITU MAKA TANMPILKAN STRING - -->
-                                            <td>{{ $val->parent ? $val->parent->name:'-' }}</td>
+                                          	<!-- MENGGUNAKAN TERNARY OPERATOR, UNTUK MENGECEK, JIKA $val->parent ADA MAKA TAMPILKAN NAMA PARENTNYA, SELAIN ITU MAKA TANMPILKAN STRING -
+                                            <td>{{ $val->parent ? $val->parent->name:'-' }}</td> -->
                                           
                                             <!-- FORMAT TANGGAL KETIKA KATEGORI DIINPUT SESUAI FORMAT INDONESIA -->
                                             <td>{{ $val->created_at->format('d-m-Y') }}</td>
@@ -101,8 +105,9 @@
                                         <tr>
                                             <td colspan="5" class="text-center">Tidak ada data</td>
                                         </tr>
-                                        @endforelse
+                                    
                                     </tbody>
+                                    @endforelse
                                 </table>
                             </div>
                             <!-- FUNGSI INI AKAN SECARA OTOMATIS MEN-GENERATE TOMBOL PAGINATION  -->
