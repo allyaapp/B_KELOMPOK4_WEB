@@ -63,22 +63,26 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>No</th>
                                             <th>Kategori</th>
-                                            <th>Parent</th>
+                                            <!-- <th>Parent</th> -->
                                             <th>Created At</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                        $no = 1;
+?>                            
                                       	<!-- LOOPING DATA KATEGORI SESUAI JUMLAH DATA YANG ADA DI VARIABLE $CATEGORY -->
                                         <?php $__empty_1 = true; $__currentLoopData = $category; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                                 
                                         <tr>
-                                            <td></td>
+                                            <td><?php echo e($no++); ?></td>
                                             <td><strong><?php echo e($val->name); ?></strong></td>
                                           
-                                          	<!-- MENGGUNAKAN TERNARY OPERATOR, UNTUK MENGECEK, JIKA $val->parent ADA MAKA TAMPILKAN NAMA PARENTNYA, SELAIN ITU MAKA TANMPILKAN STRING - -->
-                                            <td><?php echo e($val->parent ? $val->parent->name:'-'); ?></td>
+                                          	<!-- MENGGUNAKAN TERNARY OPERATOR, UNTUK MENGECEK, JIKA $val->parent ADA MAKA TAMPILKAN NAMA PARENTNYA, SELAIN ITU MAKA TANMPILKAN STRING -
+                                            <td><?php echo e($val->parent ? $val->parent->name:'-'); ?></td> -->
                                           
                                             <!-- FORMAT TANGGAL KETIKA KATEGORI DIINPUT SESUAI FORMAT INDONESIA -->
                                             <td><?php echo e($val->created_at->format('d-m-Y')); ?></td>
@@ -99,8 +103,9 @@
                                         <tr>
                                             <td colspan="5" class="text-center">Tidak ada data</td>
                                         </tr>
-                                        <?php endif; ?>
+                                    
                                     </tbody>
+                                    <?php endif; ?>
                                 </table>
                             </div>
                             <!-- FUNGSI INI AKAN SECARA OTOMATIS MEN-GENERATE TOMBOL PAGINATION  -->

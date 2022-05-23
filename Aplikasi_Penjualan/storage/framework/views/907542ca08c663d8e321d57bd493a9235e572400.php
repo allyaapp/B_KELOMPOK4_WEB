@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-  <title>Aroma Shop - <?php echo $__env->yieldContent('title'); ?></title>
+  <title>Blackshop - <?php echo $__env->yieldContent('title'); ?></title>
     
   <link rel="stylesheet" href="<?php echo e(asset("assets/vendors/bootstrap/bootstrap.min.css")); ?>">
   <link rel="stylesheet" href="<?php echo e(asset("assets/vendors/fontawesome/css/all.min.css")); ?>">
