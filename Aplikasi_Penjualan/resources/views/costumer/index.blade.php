@@ -17,14 +17,14 @@
         <div class="row no-gutters align-items-center pt-60px">
           <div class="col-5 d-none d-sm-block">
             <div class="hero-banner__img">
-              <img class="img-fluid" src="{{asset('assets/img/home/hero-banner.png')}}" alt="">
+              <img class="img-fluid" src="{{asset('assets/img/home/logo.jpg')}}" alt="">
             </div>
           </div>
           <div class="col-sm-7 col-lg-6 offset-lg-1 pl-4 pl-md-5 pl-lg-0">
             <div class="hero-banner__content">
-              <h4>Shop is fun</h4>
-              <h1>Browse Our Premium Product</h1>
-              <p>Us which over of signs divide dominion deep fill bring they're meat beho upon own earth without morning over third. Their male dry. They are great appear whose land fly grass.</p>
+              <h4>WELCOME TO OUR WEBSITE</h4>
+              <h1>BLACKSHOP1105</h1>
+              <p>We deserve new </p>
               <a class="button button-hero" href=" {{route('home.product')}} ">Browse Now</a>
             </div>
           </div>
@@ -64,13 +64,13 @@
     <!-- ================ trending product section start ================= -->
     <section class="section-margin calc-60px">
       <div class="container">
-        <div class="section-intro pb-60px">
+        <!-- <div class="section-intro pb-60px">
           <p>Tampil trendi dengan produk terbaru kami.</p>
           <h2>Produk <span class="section-intro__style">Terbaru</span></h2>
-        </div>
+        </div> -->
         <div class="row">
 
-          @foreach ($products as $row)
+          <!-- @foreach ($products as $row)
             <div class="col-md-6 col-lg-4 col-xl-3">
               <div class="card text-center card-product">
                 <div class="card-product__img">
@@ -88,7 +88,7 @@
                 </div>
               </div>
             </div>
-          @endforeach
+          @endforeach -->
 
         </div>
       </div>

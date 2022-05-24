@@ -80,7 +80,7 @@
 
 
   <!--================ Start footer Area  =================-->
-	<footer class="footer">
+	<!-- <footer class="footer">
 		<div class="footer-area">
 			<div class="container">
 				<div class="row section_gap">
@@ -111,7 +111,7 @@
 							<ul class="list instafeed d-flex flex-wrap">
                                 @foreach ($products as $row)
                                     <li><img src="{{ asset('storage/products/' . $row->image) }}" class="img-fluid" style="height: 70px;" alt=" {{$row->name}} "></li>
-                                @endforeach
+                                @endforeach -->
 							</ul>
 						</div>
 					</div>

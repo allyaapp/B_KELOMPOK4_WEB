@@ -266,7 +266,7 @@ return [
         ],
         [
             'text' =>    'admin',
-            'url'  => 'admin',
+            'url'  => 'admin/admin',
             'icon' => 'fas fa-user',
         ],
         [

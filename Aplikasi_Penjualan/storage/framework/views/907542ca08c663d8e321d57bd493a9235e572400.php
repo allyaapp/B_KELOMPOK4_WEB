@@ -80,7 +80,7 @@
 
 
   <!--================ Start footer Area  =================-->
-	<footer class="footer">
+	<!-- <footer class="footer">
 		<div class="footer-area">
 			<div class="container">
 				<div class="row section_gap">
@@ -111,7 +111,7 @@
 							<ul class="list instafeed d-flex flex-wrap">
                                 <?php $__currentLoopData = $products; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $row): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li><img src="<?php echo e(asset('storage/products/' . $row->image)); ?>" class="img-fluid" style="height: 70px;" alt=" <?php echo e($row->name); ?> "></li>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> -->
 							</ul>
 						</div>
 					</div>

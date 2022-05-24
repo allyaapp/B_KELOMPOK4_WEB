@@ -67,7 +67,7 @@
                                         <tr>
                                             <td>
                                                 <!-- TAMPILKAN GAMBAR DARI FOLDER PUBLIC/STORAGE/PRODUCTS -->
-                                                <img src="<?php echo e(asset('storage/products/' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
+                                                <img src="<?php echo e(asset('assets/img/product/' . $row->image)); ?>" width="100px" height="100px" alt="<?php echo e($row->name); ?>">
                                             </td>
                                             <td>
                                                 <strong><?php echo e($row->name); ?></strong><br>

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CostumerRegistriController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Ecommerce\FrontController;
 use App\Http\Controllers\Ecommerce\CartController;
 use App\Http\Controllers\Ecommerce\OrderController as EcommerceOrderController;
@@ -38,6 +39,8 @@ Route::prefix('/admin')->namespace('App\\Http\\Controllers\\Admin')-> group (fun
 Route::get('/coba', function () {
     return view('costumer.cart');
 });
+
+Route::get('admin/admin', [UserController::class, 'tampil']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

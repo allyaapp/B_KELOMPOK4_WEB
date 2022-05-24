@@ -48,7 +48,7 @@ class ProductController extends Controller
             //KEMUDIAN NAMA FILENYA KITA BUAT CUSTOMER DENGAN PERPADUAN TIME DAN SLUG DARI NAMA PRODUK. ADAPUN EXTENSIONNYA KITA GUNAKAN BAWAAN FILE TERSEBUT
             $filename = time() . Str::slug($request->name) . '.' . $file->getClientOriginalExtension();
             //SIMPAN FILENYA KEDALAM FOLDER PUBLIC/PRODUCTS, DAN PARAMETER KEDUA ADALAH NAMA CUSTOM UNTUK FILE TERSEBUT
-            $file->storeAs('public/products', $filename);
+            $file->storeAs('assets/img/product', $filename);
 
             //SETELAH FILE TERSEBUT DISIMPAN, KITA SIMPAN INFORMASI PRODUKNYA KEDALAM DATABASE
             $product = Product::create([

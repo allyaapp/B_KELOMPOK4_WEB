@@ -36,7 +36,7 @@ active
             <div class="col-lg-6">
                 <div class="owl-carousel owl-theme s_Product_carousel">
                     <div class="single-prd-item">
-                        <img class="img-fluid" src="{{ asset('storage/products/' . $product->image) }}" alt="{{ $product->name }}">
+                        <img class="img-fluid" src="{{ asset('assets/img/product/' . $product->image) }}" alt="{{ $product->name }}">
                     </div>
                 </div>
             </div>

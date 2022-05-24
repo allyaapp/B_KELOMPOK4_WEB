@@ -15,9 +15,11 @@ use Kavist\RajaOngkir\Facades\RajaOngkir;
 use Illuminate\Support\Str;
 use App\Models\Citie;
 use App\Models\Payment;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf as WriterPdf;
 
 class OrderController extends Controller
 {
@@ -79,7 +81,7 @@ class OrderController extends Controller
         $end = Carbon::parse($date[1])->format('Y-m-d') . ' 23:59:59';
 
         $orders = Order::with(['customer.district'])->whereBetween('created_at', [$start, $end])->get();
-        $pdf = PDF::loadView('orders.order_pdf', compact('orders', 'date'));
+        $pdf = DomPDFPDF::loadView('orders.order_pdf', compact('orders', 'date'));
         return $pdf->stream();
     }
 }
