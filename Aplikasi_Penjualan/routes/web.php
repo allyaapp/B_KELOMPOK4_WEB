@@ -29,6 +29,10 @@ Route::get('/category/{slug}', [FrontController::class,'categoryProduct'])->name
 Route::get('/product/{slug}', [FrontController::class, 'show'])->name('front.show_product');
 Route::get('/contact', function () {
     return view('costumer.contact');
+Route::prefix('/admin')->namespace('App\\Http\\Controllers\\Admin')-> group (function(){
+        //All the admin roles will be defined here
+        Route::get('dashboard','AdminController@dashboard');
+     });
 });
 
 Route::get('/coba', function () {
@@ -105,4 +109,6 @@ Route::group(['middelware' => 'costumer'], function () {
 
     Route::get('/cities/{id}', [CartController::class, 'getCity']);
 
+    Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');;
+    
 });

@@ -17,12 +17,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">
+                        <div class="card-header" >
+                            <h4 class="card-title me-2" >
                                 List Product
+
                                 <div class="float-right">
-                                    <a href="{{ route('product.bulk') }}" class="btn btn-danger btn-sm">Mass Upload</a>
-                                    <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm">Tambah</a>
+                                   
+                                    <a href="{{ route('product.create') }}" class="btn btn-primary btn-sm" style="margin-left: 20px;">Tambah</a>
                                 </div>
                             </h4>
                         </div>
@@ -53,7 +54,7 @@
                                 <table class="table table-hover table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
+                                            <th>Gambar</th>
                                             <th>Produk</th>
                                             <th>Harga</th>
                                             <th>Created At</th>

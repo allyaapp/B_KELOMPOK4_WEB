@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('city', [CostumerRegistriController::class, 'getCity']);
 Route::get('district', [CostumerRegistriController::class, 'getDistrict']);
 // Route::post('cost', 'Ecommerce\CartController@getCourier');
+
+Route::get('Product','App\Http\Controllers\API\barangController@index');
