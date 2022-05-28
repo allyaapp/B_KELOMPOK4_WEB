@@ -41,7 +41,9 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8),
             icon: const Icon(Icons.shopping_cart),
             iconSize: 20,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/cart');
+            },
           ),
         ],
       ),

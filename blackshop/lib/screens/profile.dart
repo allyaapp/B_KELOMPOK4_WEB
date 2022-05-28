@@ -53,7 +53,7 @@ class MapScreenState extends State<ProfilePage>
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.0,
                                 fontFamily: 'sans-serif-light',
-                                color: Colors.black,
+                                color: Color.fromRGBO(1, 38, 0, 1),
                               ),
                             ),
                           )
