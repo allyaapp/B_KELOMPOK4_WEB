@@ -40,6 +40,9 @@ dependencies:
   intl: ^0.17.0
   webview_flutter: ^2.0.9
   shared_preferences: ^2.0.6
+  flutter_rating_bar: ^1.1.0
+  money_formatter: ^0.0.3
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:

@@ -3,6 +3,8 @@
 
 import 'package:blackshop/LoginScreen.dart';
 import 'package:blackshop/RegisterScreen.dart';
+import 'package:blackshop/screens/CartPage.dart';
+import 'package:blackshop/screens/CheckOutPage.dart';
 import 'package:blackshop/screens/home/home_screen.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:blackshop/screens/splashScreen.dart';
@@ -25,13 +27,15 @@ class MyApp extends StatelessWidget {
       // darkTheme: ThemeData(
       //     brightness: Brightness.dark, accentColor: Colors.blueAccent),
       // themeMode: ThemeMode.dark,
-      initialRoute: "/home",
+      initialRoute: "/profile",
       routes: {
         // "/": (context) => SplashScreen(),
         "/login": (context) => const LoginScreen(),
         "/register": (context) => RegisterScreen(),
         "/home": (context) => const HomeScreen(),
         "/profile":(context) => ProfilePage(),
+        "/cart":(context) => CartPage(),
+        "/checkout":(context) => CheckOutPage(),
       },
     );
   }

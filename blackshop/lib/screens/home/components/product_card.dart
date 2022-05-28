@@ -52,7 +52,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 const SizedBox(width: defaultPadding / 4),
                 Text(
-                  "\$" + price.toString(),
+                  "\Rp" + price.toString(),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],
