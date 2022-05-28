@@ -27,9 +27,9 @@ class MyApp extends StatelessWidget {
       // darkTheme: ThemeData(
       //     brightness: Brightness.dark, accentColor: Colors.blueAccent),
       // themeMode: ThemeMode.dark,
-      initialRoute: "/profile",
+      initialRoute: "/",
       routes: {
-        // "/": (context) => SplashScreen(),
+        "/": (context) => SplashScreen(),
         "/login": (context) => const LoginScreen(),
         "/register": (context) => RegisterScreen(),
         "/home": (context) => const HomeScreen(),
