@@ -20,13 +20,14 @@ class _CheckOutPageState extends State<CheckOutPage> {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.white,
+          elevation: 0,
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,
                 color: Colors.black,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/cart');
+                Navigator.pop(context);
               }),
           title: Text(
             "Checkout",

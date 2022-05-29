@@ -9,7 +9,7 @@ class ProductCard extends StatelessWidget {
     required this.title,
     required this.price,
     required this.press,
-    required this.bgColor,
+    required this.bgColor, required String subtitleProduct,
   }) : super(key: key);
   final String image, title;
   final VoidCallback press;
@@ -38,7 +38,8 @@ class ProductCard extends StatelessWidget {
               ),
               child: Image.asset(
                 image,
-                height: 132,
+                // height: 132,
+                fit: BoxFit.cover,
               ),
             ),
             const SizedBox(height: defaultPadding / 2),
@@ -52,7 +53,7 @@ class ProductCard extends StatelessWidget {
                 ),
                 const SizedBox(width: defaultPadding / 4),
                 Text(
-                  "\Rp" + price.toString(),
+                  "Rp" + price.toString(),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],

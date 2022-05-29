@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:blackshop/utils/CustomTextStyle.dart';
 import 'package:blackshop/utils/CustomUtils.dart';
+// import 'package:badges/badges.dart';
 
 import 'CheckOutPage.dart';
 
@@ -10,6 +11,9 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
+// int _counter = 0;
+  // bool showRaisedButtonBadge = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
