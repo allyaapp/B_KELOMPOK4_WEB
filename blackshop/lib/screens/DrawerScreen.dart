@@ -15,10 +15,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
         child: ListView(
       children: <Widget>[
         const UserAccountsDrawerHeader(
-          accountName: Text("Felisa Kamiliya"),
+          margin: EdgeInsets.symmetric(horizontal: 10),
           currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
                   "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMXf2JNZ7lulzXMf6PXXzOiVyi5q58zOPKEg&usqp=CAU")),
+          accountName: Text("Felisa Kamiliya"),
           accountEmail: Text("felisakamiliya@gmail.com"),
         ),
         DrawerListTile(
@@ -34,25 +35,80 @@ class _DrawerScreenState extends State<DrawerScreen> {
           onTilePressed: () {},
         ),
         DrawerListTile(
+          iconData: Icons.people,
+          title: "About Us",
+          onTilePressed: () {
+            Navigator.pushNamed(context, '/about');
+          },
+        ),
+        DrawerListTile(
           iconData: Icons.logout,
           title: "Logout",
-          onTilePressed: () {},
+          onTilePressed: () async {
+            Dialog errorDialog = Dialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0)), //this right here
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                height: 100.0,
+                width: 350.0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 20),
+                      child: Text(
+                        'Are you sure want to logout?',
+                        style: TextStyle(color: Colors.black),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10.0),
+                            child: Container(
+                                child: RaisedButton(
+                              child: const Text("Logout"),
+                              textColor: Colors.white,
+                              color: Colors.red,
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/login');
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                            )),
+                          ),
+                          flex: 2,
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 10.0),
+                            child: Container(
+                                child: RaisedButton(
+                              child: const Text("Cancel"),
+                              textColor: Colors.white,
+                              color: Colors.green,
+                              onPressed: () {
+                                Navigator.pop(context, true);
+                              },
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0)),
+                            )),
+                          ),
+                          flex: 2,
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+            showDialog(
+                context: context,
+                builder: (BuildContext context) => errorDialog);
+          },
         ),
-        // DrawerListTile(
-        //   iconData: Icons.contacts,
-        //   title: "contacts",
-        //   onTilePressed: () {},
-        // ),
-        // DrawerListTile(
-        //   iconData: Icons.bookmark_border,
-        //   title: "Saved Message",
-        //   onTilePressed: () {},
-        // ),
-        // DrawerListTile(
-        //   iconData: Icons.phone,
-        //   title: "Calls",
-        //   onTilePressed: () {},
-        // )
       ],
     ));
   }
