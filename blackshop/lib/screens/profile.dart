@@ -21,6 +21,20 @@ class MapScreenState extends State<ProfilePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: Text(
+          "Profile",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+            fontFamily: 'sans-serif-light',
+            color: Color.fromRGBO(1, 38, 0, 1),
+          ),
+        ),
+      ),
         body: Container(
       color: Colors.white,
       child: ListView(
@@ -32,34 +46,6 @@ class MapScreenState extends State<ProfilePage>
                 color: Colors.white,
                 child: Column(
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20.0, top: 20.0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          IconButton(
-                            icon: const Icon(Icons.arrow_back_ios),
-                            color: Colors.black,
-                            iconSize: 22.0,
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/home');
-                            },
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.only(left: 25.0, top: 8.0),
-                            child: Text(
-                              'Profile',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20.0,
-                                fontFamily: 'sans-serif-light',
-                                color: Color.fromRGBO(1, 38, 0, 1),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
                     Container(
                       padding: const EdgeInsets.only(top: 20.0),
                       child: Stack(

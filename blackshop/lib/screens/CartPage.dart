@@ -15,11 +15,25 @@ class _CartPageState extends State<CartPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
+        title: Text(
+          "Shopping Cart",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18.0,
+            fontFamily: 'sans-serif-light',
+            color: Color.fromRGBO(1, 38, 0, 1),
+          ),
+        ),
+      ),
       body: Builder(
         builder: (context) {
           return ListView(
             children: <Widget>[
-              createHeader(),
+              // createHeader(),
               createSubTitle(),
               createCartList(),
               footer(context)
