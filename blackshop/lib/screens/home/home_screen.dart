@@ -8,15 +8,27 @@ import 'components/new_arrival_products.dart';
 import 'components/popular_products.dart';
 import 'components/search_form.dart';
 import 'package:blackshop/screens/profile.dart';
+import 'package:badges/badges.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+   int _counter = 0;
+  bool showRaisedButtonBadge = true;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       drawer: const DrawerScreen(),
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+        elevation: 0,
         // leading: IconButton(
         //   onPressed: () {
         //     Navigator.of(context).pushReplacement(
@@ -36,15 +48,18 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         actions: [
-          IconButton(
-            // icon: SvgPicture.asset("assets/icons/Notification.svg"),
-            padding: const EdgeInsets.only(right: 8),
-            icon: const Icon(Icons.shopping_cart),
-            iconSize: 20,
-            onPressed: () {
-              Navigator.pushNamed(context, '/cart');
-            },
-          ),
+          _shoppingCartBadge(),
+          // IconButton(
+          //   // icon: SvgPicture.asset("assets/icons/Notification.svg"),
+          //   padding: const EdgeInsets.only(right: 8),
+          //   icon: const Icon(Icons.shopping_cart),
+          //   iconSize: 20,
+          //   onPressed: () {
+          //     Navigator.pushNamed(context, '/cart');
+          //   },
+            
+          // ),
+          
         ],
       ),
       body: SingleChildScrollView(
@@ -75,6 +90,29 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _shoppingCartBadge() {
+    return Badge(
+      badgeColor: Colors.white,
+      position: BadgePosition.topStart(top: 0, start: -1),
+      animationDuration: Duration(milliseconds: 300),
+      animationType: BadgeAnimationType.slide,
+      badgeContent: Text(
+        _counter.toString(),
+        style: TextStyle(color: Colors.black),
+      ),
+      child: IconButton(
+        padding: const EdgeInsets.only(right: 8),
+          icon: Icon(
+            Icons.shopping_cart,
+            color: Colors.black,
+          ),
+          iconSize: 20,
+          onPressed: () {
+            Navigator.pushNamed(context, '/cart');
+          }),
     );
   }
 }

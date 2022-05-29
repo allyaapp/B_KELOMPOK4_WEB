@@ -43,7 +43,7 @@ class NewArrivalProducts extends StatelessWidget {
                           builder: (context) =>
                               DetailsScreen(product: demo_product[index]),
                         ));
-                  },
+                  }, subtitleProduct: '',
                 ),
               ),
             ),

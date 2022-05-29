@@ -15,10 +15,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
         child: ListView(
       children: <Widget>[
         const UserAccountsDrawerHeader(
-          margin: EdgeInsets.symmetric(horizontal: 10),
-          currentAccountPicture: CircleAvatar(
-              backgroundImage: NetworkImage(
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMXf2JNZ7lulzXMf6PXXzOiVyi5q58zOPKEg&usqp=CAU")),
+          currentAccountPicture: ClipOval(
+      child: Image(
+          image: NetworkImage(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMXf2JNZ7lulzXMf6PXXzOiVyi5q58zOPKEg&usqp=CAU"),
+                  fit: BoxFit.cover,alignment: Alignment.center,
+                  ),),
           accountName: Text("Felisa Kamiliya"),
           accountEmail: Text("felisakamiliya@gmail.com"),
         ),
@@ -28,6 +30,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
           onTilePressed: () {
             Navigator.pushNamed(context, '/profile');
           },
+        ),
+        DrawerListTile(
+          iconData: Icons.favorite,
+          title: "Wishlist",
+          onTilePressed: () {},
         ),
         DrawerListTile(
           iconData: Icons.history,

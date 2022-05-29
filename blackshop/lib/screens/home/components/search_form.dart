@@ -44,7 +44,9 @@ class SearchForm extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(12)),
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/search');
+                },
                 child: SvgPicture.asset("assets/icons/Filter.svg"),
               ),
             ),
