@@ -35,13 +35,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
           onTilePressed: () {},
         ),
         DrawerListTile(
-          iconData: Icons.people,
-          title: "About Us",
-          onTilePressed: () {
-            Navigator.pushNamed(context, '/about');
-          },
-        ),
-        DrawerListTile(
           iconData: Icons.logout,
           title: "Logout",
           onTilePressed: () async {
