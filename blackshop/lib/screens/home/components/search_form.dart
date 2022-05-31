@@ -9,15 +9,38 @@ const OutlineInputBorder outlineInputBorder = OutlineInputBorder(
   borderSide: BorderSide.none,
 );
 
-class SearchForm extends StatelessWidget {
-  const SearchForm({
-    Key? key,
-  }) : super(key: key);
+class SearchForm extends StatefulWidget {
+  // const SearchForm({
+    // Key? key,
+  // }) : super(key: key);
+
+  @override
+  State<SearchForm> createState() => _SearchFormState();
+}
+
+class _SearchFormState extends State<SearchForm> {
+late FocusNode myFocusNode;
+
+  @override
+  void initState() {
+    super.initState();
+
+    myFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // Clean up the focus node when the Form is disposed.
+    myFocusNode.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Form(
       child: TextFormField(
+        focusNode: myFocusNode,
         onSaved: (value) {},
         decoration: InputDecoration(
           filled: true,

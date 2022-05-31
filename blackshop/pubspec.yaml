@@ -45,6 +45,7 @@ dependencies:
   provider: ^6.0.2
   badges: ^1.1.1
   like_button: ^2.0.4
+  
 
 dev_dependencies:
   flutter_test:

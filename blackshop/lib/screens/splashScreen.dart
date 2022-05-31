@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:blackshop/providers/ProductProvider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -12,9 +14,15 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, "/login"));
+    getInit();
+    // Timer(Duration(seconds: 3), () => Navigator.pushNamed(context, "/login"));
     // TODO: implement initState
     super.initState();
+  }
+
+  getInit() async {
+    await Provider.of<ProductProvider>(context, listen: false).getProducts();
+    Navigator.pushNamed(context, "/login");
   }
 
   @override

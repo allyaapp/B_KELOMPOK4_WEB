@@ -179,7 +179,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "Felisa Kamiliya (Default)",
+                    "Anton Sebrianto (Default)",
                     style: CustomTextStyle.textFormFieldSemiBold
                         .copyWith(fontSize: 14),
                   ),

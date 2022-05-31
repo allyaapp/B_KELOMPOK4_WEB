@@ -1,9 +1,7 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:firebase_core/firebase_core.dart';
-// import 'package:blackshop/HomeScreen.dart';
-
 import 'dart:convert';
 import 'dart:ui';
+import 'package:blackshop/models/LoginModels.dart';
+import 'package:blackshop/network/ApiLogin.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,16 +10,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'RegisterScreen.dart';
-// import 'package:blackshop/HomeScreen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  _LoginScreenState createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
+class LoginScreen extends StatelessWidget {
+  // const LoginScreen({Key? key}) : super(key: key);
   final _formKey = GlobalKey<FormState>();
   var username, password;
   bool isLoading = false;
@@ -30,44 +21,17 @@ class _LoginScreenState extends State<LoginScreen> {
   late ScaffoldMessengerState scaffoldMessenger;
   bool _secureText = true;
 
+  final ApiLogin _loginAuth;
+  LoginScreen(this._loginAuth);
+
   showHide() {
-    setState(() {
+    // setState(() {
       _secureText = !_secureText;
-    });
+    // });
   }
-
-  // final TextEditingController _usernameController = TextEditingController();
-  // final TextEditingController _passwordController = TextEditingController();
-
-  // final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-
-  // registerSubmit() async {
-  //   try {
-  //     await _firebaseAuth.createUserWithEmailAndPassword(
-  //         email: _emailController.text.toString().trim(),
-  //         password: _passwordController.text);
-  //   } catch (e) {
-  //     print(e);
-  //     SnackBar(content: Text(e.toString()));
-  //   }
-  // }
-
-  // loginSubmit() async {
-  //   try {
-  //     _firebaseAuth
-  //         .signInWithEmailAndPassword(
-  //             email: _emailController.text, password: _passwordController.text)
-  //         .then((value) => Navigator.of(context).pushReplacement(
-  //             MaterialPageRoute(builder: (context) => HomeScreen())));
-  //   } catch (e) {
-  //     print(e);
-  //     SnackBar(content: Text(e.toString()));
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
-    // scaffoldMessenger = scaffoldMessenger.of(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(10),
@@ -294,6 +258,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
+                      // ApiLogin(_loginAuth));
+                      // _loginAuth;
                       Navigator.pushNamed(context, '/home');
                     },
                   ),
@@ -350,9 +316,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
 }
-
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     onPrimary: Colors.white,
     primary: const Color.fromRGBO(1, 38, 0, 1),
@@ -361,3 +325,4 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(Radius.circular(20)),
     ));
+}

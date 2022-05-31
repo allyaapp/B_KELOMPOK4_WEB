@@ -19,7 +19,9 @@ class Categories extends StatelessWidget {
         itemBuilder: (context, index) => CategoryCard(
           icon: demo_categories[index].icon,
           title: demo_categories[index].title,
-          press: () {},
+          press: () {
+            Navigator.pushNamed(context, '/skincare_product');
+          },
         ),
         separatorBuilder: (context, index) =>
             const SizedBox(width: defaultPadding),

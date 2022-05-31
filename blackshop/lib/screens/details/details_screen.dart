@@ -5,30 +5,25 @@ import 'package:blackshop/models/Product.dart';
 import 'package:badges/badges.dart';
 import 'package:like_button/like_button.dart';
 
+import '../../models/ProductModels.dart';
 import 'components/color_dot.dart';
 
-class DetailsScreen extends StatefulWidget {
-  const DetailsScreen({Key? key, required this.product}) : super(key: key);
+class DetailsScreen extends StatelessWidget {
+  // const DetailsScreen({Key? key}) : super(key: key);
+  final ProductModels product;
+  DetailsScreen(this.product);
 
-  final Product product;
-
-  @override
-  State<DetailsScreen> createState() => _DetailsScreenState();
-}
-
-class _DetailsScreenState extends State<DetailsScreen> {
-  int _counter = 0;
-  bool showRaisedButtonBadge = true;
   @override
   Widget build(BuildContext context) {
+    print(product.image);
     return Scaffold(
-      backgroundColor: widget.product.bgColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: const BackButton(color: Colors.black),
         actions: [
-          _shoppingCartBadge(),
+          // _shoppingCartBadge(),
           // IconButton(
           //   onPressed: () {},
           //   icon: CircleAvatar(
@@ -45,8 +40,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
         padding: EdgeInsets.only(top: 15),
         child: Column(
           children: [
-            Image.asset(
-              widget.product.image,
+            Image.network(
+              "https://63fd-116-206-40-2.ap.ngrok.io/storage/" + product.image.toString(),
               height: MediaQuery.of(context).size.height * 0.4,
               fit: BoxFit.cover,
             ),
@@ -69,7 +64,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       children: [
                         Expanded(
                           child: Text(
-                            widget.product.title,
+                            product.name.toString(),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ),
@@ -91,18 +86,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     ),
                     const SizedBox(height: defaultPadding),
                     // const Padding(
-                      // padding: EdgeInsets.symmetric(vertical: defaultPadding),
-                      // child: 
-                      Text(
-                        widget.product.subtitleProduct.toString(),
-                        // style: Theme.of(context).textTheme.headline6,
-                      ),
+                    // padding: EdgeInsets.symmetric(vertical: defaultPadding),
+                    // child:
+                    Text(
+                      product.description.toString(),
+                      // style: Theme.of(context).textTheme.headline6,
+                    ),
                     // ),
                     const SizedBox(height: defaultPadding),
-                        Text(
-                          "Rp" + widget.product.price.toString(),
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
+                    Text(
+                      "Rp" + product.price.toString(),
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
 
                     // Text(
                     //   "Colors",
@@ -132,9 +127,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         height: 48,
                         child: ElevatedButton(
                           onPressed: () {
-                            setState(() {
-                              _counter++;
-                            });
+                            // setState(() {
+                            //   // _counter++;
+                            // });
                           },
                           style: ElevatedButton.styleFrom(
                               primary: primaryColor,
@@ -153,26 +148,27 @@ class _DetailsScreenState extends State<DetailsScreen> {
     );
   }
 
-  Widget _shoppingCartBadge() {
-    return Badge(
-      badgeColor: Colors.white,
-      position: BadgePosition.topStart(top: 0, start: -1),
-      animationDuration: Duration(milliseconds: 300),
-      animationType: BadgeAnimationType.slide,
-      badgeContent: Text(
-        _counter.toString(),
-        style: TextStyle(color: Colors.black),
-      ),
-      child: IconButton(
-        padding: const EdgeInsets.only(right: 8),
-          icon: Icon(
-            Icons.shopping_cart,
-            color: Colors.black,
-          ),
-          iconSize: 20,
-          onPressed: () {
-            Navigator.pushNamed(context, '/cart');
-          }),
-    );
-  }
+  // Widget _shoppingCartBadge() {
+  //   return Badge(
+  //     badgeColor: Colors.white,
+  //     position: BadgePosition.topStart(top: 0, start: -1),
+  //     animationDuration: Duration(milliseconds: 300),
+  //     animationType: BadgeAnimationType.slide,
+  //     // badgeContent: Text(
+  //       // _counter.toString(),
+  //     //   style: TextStyle(color: Colors.black),
+  //     // ),
+  //     child: IconButton(
+  //         padding: const EdgeInsets.only(right: 8),
+  //         icon: Icon(
+  //           Icons.shopping_cart,
+  //           color: Colors.black,
+  //         ),
+  //         iconSize: 20,
+  //         onPressed: () {
+  //           Navigator.pushNamed(context, '/cart');
+  //           Navigator.pushNamed(context, '/cart');
+  //         }),
+  //   );
+  // }
 }
