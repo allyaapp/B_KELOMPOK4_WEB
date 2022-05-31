@@ -3,15 +3,15 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Network{
-  final String _url = 'http://192.168.1.2/lara_passport/public/api/v1/';
+  final String _url = 'https://70fa-180-253-167-167.ap.ngrok.io/Aplikasi_Penjualan';
   // 192.168.1.2 is my IP, change with your IP address
-  var token;
+  // var token;
 
   _getToken() async{
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     // token = jsonDecode(localStorage.getString('token'))['token'];
     //  token = jsonDecode(localStorage.getString('token') ?? '')['token'];
-    print('Token $token');
+    // print('Token $token');
   }
 
   auth(data, apiURL) async{
@@ -25,7 +25,7 @@ class Network{
 
   getData(apiURL) async{
     var fullUrl = _url + apiURL;
-    await _getToken();
+    // await _getToken();
     return await http.get(Uri.parse(fullUrl)
      
       // headers: _setHeaders(),
@@ -35,6 +35,6 @@ class Network{
   _setHeaders() => {
     'Content-type': 'application/json',
     'Accept': 'application/json',
-    'Authorization': 'Bearer $token',
+    // 'Authorization': 'Bearer $token',
   };
 }

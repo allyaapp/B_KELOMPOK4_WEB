@@ -4,14 +4,18 @@
 import 'package:blackshop/LoginScreen.dart';
 import 'package:blackshop/RegisterScreen.dart';
 import 'package:blackshop/models/Product.dart';
+import 'package:blackshop/network/ApiLogin.dart';
+import 'package:blackshop/providers/ProductProvider.dart';
 import 'package:blackshop/screens/CartPage.dart';
 import 'package:blackshop/screens/CheckOutPage.dart';
+import 'package:blackshop/screens/DetailCategoryProduct.dart';
 import 'package:blackshop/screens/SearchPage.dart';
 import 'package:blackshop/screens/details/details_screen.dart';
 import 'package:blackshop/screens/home/home_screen.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:blackshop/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,24 +27,32 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Blackshop',
-      debugShowCheckedModeBanner: false,
-      // home: RegisterScreen(),
-      theme: ThemeData(
-          brightness: Brightness.light, primaryColor: Colors.white38),
-      // themeMode: ThemeMode.light,
-      initialRoute: "/home",
-      routes: {
-        // "/": (context) => SplashScreen(),
-        "/login": (context) => const LoginScreen(),
-        "/register": (context) => RegisterScreen(),
-        "/home": (context) => const HomeScreen(),
-        "/profile":(context) => ProfilePage(),
-        "/cart":(context) => CartPage(),
-        "/checkout":(context) => CheckOutPage(),
-        "/search":(context) => SearchPage(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
+        )
+      ],
+      child: MaterialApp(
+        title: 'Blackshop',
+        debugShowCheckedModeBanner: false,
+        // home: RegisterScreen(),
+        theme: ThemeData(
+            brightness: Brightness.light, primaryColor: Colors.white38),
+        // themeMode: ThemeMode.light,
+        initialRoute: "/",
+        routes: {
+          "/": (context) => SplashScreen(),
+          "/login": (context) => LoginScreen(ApiLogin()),
+          "/register": (context) => RegisterScreen(),
+          "/home": (context) => const HomeScreen(),
+          "/skincare_product":(context) => DetailCategoryProductPage(),
+          "/profile":(context) => ProfilePage(),
+          "/cart":(context) => CartPage(),
+          "/checkout":(context) => CheckOutPage(),
+          "/search":(context) => SearchPage(),
+        },
+      ),
     );
   }
 }
@@ -79,7 +91,7 @@ class _CheckAuthState extends State<CheckAuth> {
     if (isAuth) {
       child = Home();
     } else {
-      child = const LoginScreen();
+      child = LoginScreen(ApiLogin());
     }
 
     return Scaffold(

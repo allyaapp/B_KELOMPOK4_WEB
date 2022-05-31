@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:blackshop/models/Product.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../providers/ProductProvider.dart';
 import 'product_card.dart';
 import 'section_title.dart';
 
@@ -12,6 +14,7 @@ class PopularProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
     return Column(
       children: [
         Padding(
@@ -26,19 +29,24 @@ class PopularProducts extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics()),
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: List.generate(
-              demo_product.length,
-              (index) => Padding(
-                padding: const EdgeInsets.only(right: defaultPadding),
-                child: ProductCard(
-                  title: demo_product[index].title,
-                  image: demo_product[index].image,
-                  price: demo_product[index].price,
-                  bgColor: demo_product[index].bgColor,
-                  press: () {}, subtitleProduct: '',
-                ),
-              ),
-            ),
+            children: productProvider.products
+                .map(
+                  (product) => Padding(padding: EdgeInsets.only(right: defaultPadding),child: ProductCard(product),),
+                )
+                .toList(),
+            // children: List.generate(
+            //   demo_product.length,
+            //   (index) => Padding(
+            //     padding: const EdgeInsets.only(right: defaultPadding),
+            //     child: ProductCard(
+            //       title: demo_product[index].title,
+            //       image: demo_product[index].image,
+            //       price: demo_product[index].price,
+            //       bgColor: demo_product[index].bgColor,
+            //       press: () {}, subtitleProduct: '',
+            //     ),
+            //   ),
+            // ),
           ),
         )
       ],

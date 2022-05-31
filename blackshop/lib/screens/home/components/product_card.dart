@@ -1,25 +1,34 @@
+import 'package:blackshop/screens/details/details_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
+import '../../../models/ProductModels.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    Key? key,
-    required this.image,
-    required this.title,
-    required this.price,
-    required this.press,
-    required this.bgColor, required String subtitleProduct,
-  }) : super(key: key);
-  final String image, title;
-  final VoidCallback press;
-  final int price;
-  final Color bgColor;
+  final ProductModels product;
+  ProductCard(this.product);
+  // const ProductCard({
+  //   // Key? key,
+  //   // required this.image,
+  //   // required this.title,
+  //   // required this.price,
+  //   // required this.press,
+  //   // required this.bgColor, required String subtitleProduct,
+  // }) : super(key: key);
+  // final String image, title;
+  // final VoidCallback press;
+  // final int price;
+  // final Color bgColor;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: press,
+      onTap: (() => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DetailsScreen(product),
+            ),
+          )),
       child: Container(
         width: 154,
         padding: const EdgeInsets.all(defaultPadding / 2),
@@ -31,13 +40,13 @@ class ProductCard extends StatelessWidget {
           children: [
             Container(
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: bgColor,
-                borderRadius: const BorderRadius.all(
+                borderRadius: BorderRadius.all(
                     Radius.circular(defaultBorderRadius)),
               ),
-              child: Image.asset(
-                image,
+              child: Image.network(
+                "https://63fd-116-206-40-2.ap.ngrok.io/storage/" + product.image.toString(),
                 // height: 132,
                 fit: BoxFit.cover,
               ),
@@ -47,13 +56,13 @@ class ProductCard extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    title,
+                    product.name.toString(),
                     style: const TextStyle(color: Colors.black),
                   ),
                 ),
                 const SizedBox(width: defaultPadding / 4),
                 Text(
-                  "Rp" + price.toString(),
+                  "Rp" + product.price.toString(),
                   style: Theme.of(context).textTheme.subtitle2,
                 ),
               ],

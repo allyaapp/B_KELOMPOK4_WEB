@@ -18,11 +18,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
           currentAccountPicture: ClipOval(
       child: Image(
           image: NetworkImage(
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMXf2JNZ7lulzXMf6PXXzOiVyi5q58zOPKEg&usqp=CAU"),
-                  fit: BoxFit.cover,alignment: Alignment.center,
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/2016_RiP_Bring_Me_the_Horizon_-_Oliver_Sykes_-_by_2eight_-_8SC6698.jpg/1200px-2016_RiP_Bring_Me_the_Horizon_-_Oliver_Sykes_-_by_2eight_-_8SC6698.jpg"),
+                  fit: BoxFit.cover,
                   ),),
-          accountName: Text("Felisa Kamiliya"),
-          accountEmail: Text("felisakamiliya@gmail.com"),
+          accountName: Text("Anton Sebrianto"),
+          accountEmail: Text("antonsebrianto@gmail.com"),
         ),
         DrawerListTile(
           iconData: Icons.account_circle,

@@ -1,8 +1,11 @@
+import 'package:blackshop/screens/SeeAllProductPage.dart';
 import 'package:flutter/material.dart';
 import 'package:blackshop/models/Product.dart';
 import 'package:blackshop/screens/details/details_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../providers/ProductProvider.dart';
 import 'product_card.dart';
 import 'section_title.dart';
 
@@ -13,13 +16,20 @@ class NewArrivalProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProductProvider productProvider = Provider.of<ProductProvider>(context);
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: defaultPadding),
           child: SectionTitle(
             title: "New Arrival",
-            pressSeeAll: () {},
+            pressSeeAll: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SeeAllProductPage(),
+                  ));
+            },
           ),
         ),
         SingleChildScrollView(
@@ -27,26 +37,30 @@ class NewArrivalProducts extends StatelessWidget {
               parent: AlwaysScrollableScrollPhysics()),
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: List.generate(
-              demo_product.length,
-              (index) => Padding(
-                padding: const EdgeInsets.only(right: defaultPadding),
-                child: ProductCard(
-                  title: demo_product[index].title,
-                  image: demo_product[index].image,
-                  price: demo_product[index].price,
-                  bgColor: demo_product[index].bgColor,
-                  press: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              DetailsScreen(product: demo_product[index]),
-                        ));
-                  }, subtitleProduct: '',
-                ),
-              ),
-            ),
+            children: productProvider.products
+                .map(
+                  (product) => Padding(padding: EdgeInsets.only(right: defaultPadding),child: ProductCard(product),),
+                )
+                .toList(),
+            //   demo_product.length,
+            //   (index) => Padding(
+            //     padding: const EdgeInsets.only(right: defaultPadding),
+            //     child: ProductCard(
+            //       title: demo_product[index].title,
+            //       image: demo_product[index].image,
+            //       price: demo_product[index].price,
+            //       bgColor: demo_product[index].bgColor,
+            //       press: () {
+            //         Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //               builder: (context) =>
+            //                   DetailsScreen(product: demo_product[index]),
+            //             ));
+            //       }, subtitleProduct: '',
+            //     ),
+            //   ),
+            // ),
           ),
         )
       ],
