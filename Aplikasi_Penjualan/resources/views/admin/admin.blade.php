@@ -10,7 +10,7 @@
 <main class="main">
     <ol class="breadcrumb">
         <li class="breadcrumb-item">Home</li>
-        <li class="breadcrumb-item active">Adminaaa</li>
+        <li class="breadcrumb-item active">Admin</li>
     </ol>
     <div class="container-fluid">
         <div class="animated fadeIn">
@@ -47,8 +47,8 @@
                                             <th>id</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>level</th>
                                             <th>Foto admin</th>
-                                            
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,10 +57,12 @@
                                             <td><strong>{{ $row->id }}</strong></td>
                                             <td>
                                                 <strong>{{ $row->name }}</strong><br>
+
                                                
                                                 
                                             </td>
                                             <td>{{ $row->email }}</td>
+                                            <td>{{ $row->level }}</td>
                                             <td>{{ $row->profile_photo_path }}</td>
                                         </tr>
                                         @empty

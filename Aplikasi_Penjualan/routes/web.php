@@ -12,6 +12,7 @@ use App\Http\Controllers\Ecommerce\CartController;
 use App\Http\Controllers\Ecommerce\OrderController as EcommerceOrderController;
 use App\Http\Controllers\OrderController;
 use App\Models\OrderDetail;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -116,4 +117,17 @@ Route::prefix('/costumer')->name('costumer.')->namespace('Costumer')->group(func
 
     // Route::get('admin/admin', [AdminController::class, 'index'])->name('admin.index');;
     
+    // Route::group(['middleware' => ['auth', 'ceklevel:user']], function () {
+    //     route::get('/admin/admin','DashboardController@admin/admin');   
+    // });
+
+    // Route::group(['middleware' => ['auth', 'ceklevel:user,pegawai']], function () {
+    //     route::get('/dashboard','DashboardController@index');  
+    //     route::get('/kategori','DashboardController@kategori');
+    //     route::get('/auth/product','DashboardController@auth/product');
+    //     route::get('/order/index','DashboardController@order/index');
+    //     route::get('/order','DashboardController@order');       
+
+    // });
+
 

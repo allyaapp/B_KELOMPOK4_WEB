@@ -70,7 +70,7 @@
       <div class="media contact-info">
         <span class="contact-info__icon"><i class="ti-home"></i></span>
         <div class="media-body">
-          <h3>Kabupaten Probolinggo</h3>
+          <h3>Kabupaten Prob</h3>
           <p>Sumurdalam Kecamatan Besuk</p>
         </div>
       </div>

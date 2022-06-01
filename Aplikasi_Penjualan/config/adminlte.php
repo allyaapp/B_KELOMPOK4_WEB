@@ -265,9 +265,11 @@ return [
             'icon' => 'fas fa-shopping-cart',
         ],
         [
+            // @if (auth()->user()->level=="user")
             'text' =>    'admin',
             'url'  => 'admin/admin',
             'icon' => 'fas fa-user',
+            // @endif
         ],
         [
             'text'    => 'Laporan',

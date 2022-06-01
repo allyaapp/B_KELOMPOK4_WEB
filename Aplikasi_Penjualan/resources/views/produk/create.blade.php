@@ -80,8 +80,8 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="image">Foto Produk</label>
-                                    <input type="file" name="image" class="form-control" value="{{ old('image') }}" required>
-                                    <p class="text-danger">{{ $errors->first('image') }}</p>
+                                    <input type="file" name="image" class="form-control">
+                                    
                                 </div>
                                 <div class="form-group">
                                     <button class="btn btn-primary btn-sm">Tambah</button>

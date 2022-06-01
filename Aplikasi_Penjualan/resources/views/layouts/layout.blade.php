@@ -65,7 +65,8 @@
             @else
                 <!-- <li class="nav-item"><button><i class="ti-list"></i></button></li> -->
                 <!-- <li class="nav-item"><button><a href="cart"><i class="ti-shopping-cart"></i></a></span></button> </li> -->
-                <li class="nav-item"><a class="button button-header" href="{{ route('costumer.login') }}">Login</a></li>
+                <!-- <li class="nav-item"><a class="button button-header" href="{{ route('costumer.login') }}">Login</a></li> -->
+                <li class="nav-item"><a class="button button-header" href="{{ route('login') }}">Login</a></li>
             @endif
             </ul>
           </div>
