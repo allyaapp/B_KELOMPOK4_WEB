@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:blackshop/screens/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:blackshop/LoginScreen.dart';
 
 class DrawerScreen extends StatefulWidget {
   const DrawerScreen({Key? key}) : super(key: key);
@@ -9,21 +13,99 @@ class DrawerScreen extends StatefulWidget {
 }
 
 class _DrawerScreenState extends State<DrawerScreen> {
+  late SharedPreferences sharedPreferences;
+  String name = "";
+  String profile = "";
+  String email = "";
+
+  @override
+  void initState() {
+    getData();
+    checkLoginStatus();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (mounted) {
+      setState(() {
+        name = sharedPreferences.getString("name")!;
+        profile = sharedPreferences.getString("profile")!;
+        email = sharedPreferences.getString("email")!;
+      });
+    }
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+          (Route<dynamic> route) => false);
+    }
+  }
+
+  // late SharedPreferences sharedPreferences;
+  // SharedPreferences sharedPreferences = SharedPreferences.getInstance();
   @override
   Widget build(BuildContext context) {
     return Drawer(
         child: ListView(
       children: <Widget>[
-        const UserAccountsDrawerHeader(
-          currentAccountPicture: ClipOval(
-      child: Image(
-          image: NetworkImage(
-                  "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/2016_RiP_Bring_Me_the_Horizon_-_Oliver_Sykes_-_by_2eight_-_8SC6698.jpg/1200px-2016_RiP_Bring_Me_the_Horizon_-_Oliver_Sykes_-_by_2eight_-_8SC6698.jpg"),
-                  fit: BoxFit.cover,
-                  ),),
-          accountName: Text("Anton Sebrianto"),
-          accountEmail: Text("antonsebrianto@gmail.com"),
+        Container(
+          margin: EdgeInsets.symmetric(vertical: 10),
+          width: 80,
+          height: 80,
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: NetworkImage(profile), fit: BoxFit.fill)),
+          // child: Image.network(
+          //   profile,
+          //   // width: 80,
+          //   // height: 80,
+          //   fit: BoxFit.cover,
+          // ),
         ),
+        Center(
+          child: Text(
+            name,
+            style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Roboto-Bold',
+                fontWeight: FontWeight.w500,
+                color: Colors.black),
+          ),
+        ),
+        Center(
+          child: Text(
+            email,
+            style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Roboto-Bold',
+                fontWeight: FontWeight.w500,
+                color: Colors.black),
+          ),
+        ),
+
+        Divider(
+          thickness: 0.5,
+          height: 10,
+          color: Colors.black.withOpacity(0.5),
+        ),
+        // const UserAccountsDrawerHeader(
+        //   currentAccountPicture: ClipOval(
+        //     child: Image(
+        //       image: NetworkImage(
+        //           // sharedPreferences.getString("profile")
+        //           "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/2016_RiP_Bring_Me_the_Horizon_-_Oliver_Sykes_-_by_2eight_-_8SC6698.jpg/1200px-2016_RiP_Bring_Me_the_Horizon_-_Oliver_Sykes_-_by_2eight_-_8SC6698.jpg"),
+        //       fit: BoxFit.cover,
+        //     ),
+        //   ),
+        //   accountName: Text('${name}'),
+        //   accountEmail: Text("antonsebrianto@gmail.com"),
+        // ),
         DrawerListTile(
           iconData: Icons.account_circle,
           title: "Profile",
@@ -73,7 +155,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                               textColor: Colors.white,
                               color: Colors.red,
                               onPressed: () {
-                                Navigator.pushNamed(context, '/login');
+                                sharedPreferences.clear();
+                                sharedPreferences.commit();
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            LoginScreen()),
+                                    (Route<dynamic> route) => false);
                               },
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(20.0)),

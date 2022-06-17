@@ -1,5 +1,8 @@
 import 'dart:async';
 
+import 'package:blackshop/providers/CartProvider.dart';
+import 'package:blackshop/providers/CategoryProvider.dart';
+import 'package:blackshop/providers/DetailCategoryProvider.dart';
 import 'package:blackshop/providers/ProductProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +25,10 @@ class _SplashScreenState extends State<SplashScreen> {
 
   getInit() async {
     await Provider.of<ProductProvider>(context, listen: false).getProducts();
+    await Provider.of<CategoryProvider>(context, listen: false).getCategory();
+    await Provider.of<DetailCategoryProvider>(context, listen: false)
+        .getListCategory();
+    // await Provider.of<CartProvider>(context, listen: false).getCart();
     Navigator.pushNamed(context, "/login");
   }
 

@@ -1,21 +1,62 @@
+import 'dart:convert';
+
+import 'package:blackshop/providers/CartProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:blackshop/utils/CustomTextStyle.dart';
 import 'package:blackshop/utils/CustomUtils.dart';
+import 'package:blackshop/models/CartModels.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 // import 'package:badges/badges.dart';
 
 import 'CheckOutPage.dart';
 
 class CartPage extends StatefulWidget {
+  // final CartModels cartModels;
+  // CartPage(this.cartModels);
   @override
   _CartPageState createState() => _CartPageState();
 }
 
 class _CartPageState extends State<CartPage> {
-// int _counter = 0;
+  // addCart() async {
+  //   var url = Uri.parse("http://127.0.0.1:8000/api/cart?id_customer=9");
+  //   final response = await http.get
+  // }
+
+  // counter() async{
+  // CartProvider cartProvider = Provider.of<CartProvider>(context);
+  // int _counter = cartProvider.;
+
+  // }
   // bool showRaisedButtonBadge = true;
+  late SharedPreferences sharedPreferences;
+
+  int citie_id = 0;
+  int origin = 252;
+
+  @override
+  void initState() {
+    getData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (mounted) {
+      setState(() {
+        citie_id = sharedPreferences.getInt("citie_id")!;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -49,6 +90,11 @@ class _CartPageState extends State<CartPage> {
   }
 
   footer(BuildContext context) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    int total = 0;
+    for (int i = 0; i < cartProvider.carts.length; i++) {
+      total += (cartProvider.carts[i].cartPrice! * cartProvider.carts[i].qty!);
+    }
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,7 +114,9 @@ class _CartPageState extends State<CartPage> {
               Container(
                 margin: const EdgeInsets.only(right: 30),
                 child: Text(
-                  "Rp12000",
+                  total.toString(),
+                  // "Rp12000",
+                  // cartProvider.carts[0].cartPrice.toString(),
                   style: CustomTextStyle.textFormFieldBlack
                       .copyWith(color: Colors.black, fontSize: 13),
                 ),
@@ -78,6 +126,7 @@ class _CartPageState extends State<CartPage> {
           Utils.getSizedBox(height: 8, width: 0),
           RaisedButton(
             onPressed: () {
+              // ongkosKirim();
               Navigator.pushNamed(context, '/checkout');
             },
             color: Colors.green,
@@ -144,10 +193,11 @@ class _CartPageState extends State<CartPage> {
   }
 
   createSubTitle() {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Container(
       alignment: Alignment.topLeft,
       child: Text(
-        "Total(1) Item",
+        "Total (" + cartProvider.carts.length.toString() + ") Item",
         style: CustomTextStyle.textFormFieldBold
             .copyWith(fontSize: 12, color: Colors.black),
       ),
@@ -156,17 +206,19 @@ class _CartPageState extends State<CartPage> {
   }
 
   createCartList() {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return ListView.builder(
       shrinkWrap: true,
       primary: false,
       itemBuilder: (context, position) {
-        return createCartListItem();
+        return createCartListItem(cartProvider.carts[position]);
       },
-      itemCount: 1,
+      itemCount: cartProvider.carts.length,
     );
   }
 
-  createCartListItem() {
+  createCartListItem(CartModels cart) {
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
     return Stack(
       children: <Widget>[
         Container(
@@ -184,9 +236,12 @@ class _CartPageState extends State<CartPage> {
                 decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(14)),
                     color: Colors.blue.shade200,
-                    image: const DecorationImage(
-                        image: AssetImage("assets/images/kripca.png"),
-                        fit: BoxFit.fill)),
+                    image: DecorationImage(
+                        image: NetworkImage(
+                          "https://a1bd-180-253-165-54.ap.ngrok.io/storage/products/" +
+                              cart.product!.image.toString(),
+                        ),
+                        fit: BoxFit.cover)),
               ),
               Expanded(
                 child: Container(
@@ -201,14 +256,16 @@ class _CartPageState extends State<CartPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              "Keripik Kaca",
+                              // "Keripik Kaca",
+                              cart.product!.name.toString(),
                               maxLines: 2,
                               softWrap: true,
                               style: CustomTextStyle.textFormFieldSemiBold
                                   .copyWith(fontSize: 14),
                             ),
                             Text(
-                              "Rp6000",
+                              // "Rp6000",
+                              cart.product!.price.toString(),
                               style: CustomTextStyle.textFormFieldBlack
                                   .copyWith(color: Colors.black, fontSize: 13),
                             ),
@@ -250,8 +307,8 @@ class _CartPageState extends State<CartPage> {
                                     padding: const EdgeInsets.all(5),
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 5),
-                                    child: const Text(
-                                      "2",
+                                    child: Text(
+                                      cart.qty.toString(),
                                       style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                       ),
@@ -266,7 +323,8 @@ class _CartPageState extends State<CartPage> {
                               ),
                             ),
                             Text(
-                              "Rp12000",
+                              // "Rp12000",
+                              (cart.cartPrice! * cart.qty!).toString(),
                               style: CustomTextStyle.textFormFieldBlack
                                   .copyWith(color: Colors.black, fontSize: 13),
                             ),

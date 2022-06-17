@@ -3,22 +3,25 @@
 
 import 'package:blackshop/LoginScreen.dart';
 import 'package:blackshop/RegisterScreen.dart';
-import 'package:blackshop/models/Product.dart';
-import 'package:blackshop/network/ApiLogin.dart';
+import 'package:blackshop/models/AuthModels.dart';
+import 'package:blackshop/providers/AddtoCartProvider.dart';
+import 'package:blackshop/providers/CartProvider.dart';
+import 'package:blackshop/providers/CategoryProvider.dart';
+import 'package:blackshop/providers/DetailCategoryProvider.dart';
 import 'package:blackshop/providers/ProductProvider.dart';
+import 'package:blackshop/providers/RegisterProvider.dart';
+import 'package:blackshop/providers/UserProvider.dart';
 import 'package:blackshop/screens/CartPage.dart';
 import 'package:blackshop/screens/CheckOutPage.dart';
 import 'package:blackshop/screens/DetailCategoryProduct.dart';
 import 'package:blackshop/screens/SearchPage.dart';
-import 'package:blackshop/screens/details/details_screen.dart';
 import 'package:blackshop/screens/home/home_screen.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:blackshop/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'screens/home.dart';
-import 'screens/login.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:blackshop/utils/SharedPreferences.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,11 +30,20 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // Future<User> getUserData() => UserPreferences().getUser();
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
           create: (context) => ProductProvider(),
-        )
+        ),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
+        ChangeNotifierProvider(create: (_) => RegisterProvider()),
+        ChangeNotifierProvider(
+          create: (context) => CategoryProvider(),
+        ),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => AddtoCartProvider()),
+        ChangeNotifierProvider(create: (context) => DetailCategoryProvider()),
       ],
       child: MaterialApp(
         title: 'Blackshop',
@@ -43,62 +55,62 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           "/": (context) => SplashScreen(),
-          "/login": (context) => LoginScreen(ApiLogin()),
+          "/login": (context) => LoginScreen(),
           "/register": (context) => RegisterScreen(),
-          "/home": (context) => const HomeScreen(),
-          "/skincare_product":(context) => DetailCategoryProductPage(),
-          "/profile":(context) => ProfilePage(),
-          "/cart":(context) => CartPage(),
-          "/checkout":(context) => CheckOutPage(),
-          "/search":(context) => SearchPage(),
+          "/home": (context) => HomeScreen(),
+          "/skincare_product": (context) => DetailCategoryProductPage(),
+          "/profile": (context) => ProfilePage(),
+          "/cart": (context) => CartPage(),
+          "/checkout": (context) => CheckOutPage(),
+          "/search": (context) => SearchPage(),
         },
       ),
     );
   }
 }
 
-class CheckAuth extends StatefulWidget {
-  const CheckAuth({Key? key}) : super(key: key);
+// class CheckAuth extends StatefulWidget {
+//   const CheckAuth({Key? key}) : super(key: key);
 
-  @override
-  _CheckAuthState createState() => _CheckAuthState();
-}
+//   @override
+//   _CheckAuthState createState() => _CheckAuthState();
+// }
 
-class _CheckAuthState extends State<CheckAuth> {
-  bool isAuth = false;
+// class _CheckAuthState extends State<CheckAuth> {
+//   bool isAuth = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _checkIfLoggedIn();
-  }
+//   @override
+//   void initState() {
+//     super.initState();
+//     _checkIfLoggedIn();
+//   }
 
-  void _checkIfLoggedIn() async {
-    SharedPreferences localStorage = await SharedPreferences.getInstance();
-    var token = localStorage.getString('token');
-    if (token != null) {
-      if (mounted) {
-        setState(() {
-          isAuth = true;
-        });
-      }
-    }
-  }
+//   void _checkIfLoggedIn() async {
+//     SharedPreferences localStorage = await SharedPreferences.getInstance();
+//     var token = localStorage.getString('token');
+//     if (token != null) {
+//       if (mounted) {
+//         setState(() {
+//           isAuth = true;
+//         });
+//       }
+//     }
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    Widget child;
-    if (isAuth) {
-      child = Home();
-    } else {
-      child = LoginScreen(ApiLogin());
-    }
+//   @override
+//   Widget build(BuildContext context) {
+//     Widget child;
+//     if (isAuth) {
+//       child = Home();
+//     } else {
+//       child = LoginScreen(ApiLogin());
+//     }
 
-    return Scaffold(
-      body: child,
-    );
-  }
-}
+//     return Scaffold(
+//       body: child,
+//     );
+//   }
+// }
 
 
 

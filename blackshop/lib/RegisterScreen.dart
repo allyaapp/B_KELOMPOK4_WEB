@@ -1,9 +1,15 @@
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:firebase_core/firebase_core.dart';
+import 'dart:convert';
+
+import 'package:blackshop/providers/RegisterProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:blackshop/LoginScreen.dart';
 import 'package:blackshop/screens/home/home_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class RegisterScreen extends StatefulWidget {
   @override
@@ -20,7 +26,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       TextEditingController();
 
   bool _secureText = true;
-  var password, confirmPassword;
+  bool isLoading = false;
+  // var password, confirmPassword;
 
   showHide() {
     setState(() {
@@ -56,6 +63,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    RegisterProvider registerProvider = Provider.of<RegisterProvider>(context);
+
+    handleRegister() async {
+      if (await registerProvider.register(
+          name: _fullNameController.text,
+          email: _emailController.text,
+          password: _passwordController.text)) {
+        print(registerProvider.user);
+        Navigator.pushNamed(context, '/login');
+      } else {
+        print("Register Gagal");
+      }
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -250,23 +271,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                        // controller: _passwordController,
-                        // keyboardType: TextInputType.text,
-                        obscureText: _secureText,
-                        decoration: const InputDecoration.collapsed(
-                            // prefixIcon: Icon(Icons.key),
-                            //
-                            // suffixIcon:
-                            // border: OutlineInputBorder(
-                            //     borderRadius: BorderRadius.circular(20)),
-                            hintText: "Password"),
-                        validator: (passwordValue) {
-                          if (passwordValue == null) {
-                            return 'Please enter your password';
-                          }
-                          password = passwordValue;
-                          return null;
-                        }),
+                      controller: _passwordController,
+                      // keyboardType: TextInputType.text,
+                      obscureText: _secureText,
+                      decoration: const InputDecoration.collapsed(
+                          // prefixIcon: Icon(Icons.key),
+                          //
+                          // suffixIcon:
+                          // border: OutlineInputBorder(
+                          //     borderRadius: BorderRadius.circular(20)),
+                          hintText: "Password"),
+                      // validator: (passwordValue) {
+                      //   if (passwordValue == null) {
+                      //     return 'Please enter your password';
+                      //   }
+                      //   password = passwordValue;
+                      //   return null;
+                      // }
+                    ),
                   ),
                   IconButton(
                     hoverColor: Colors.transparent,
@@ -302,23 +324,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                        // controller: _passwordController,
-                        // keyboardType: TextInputType.text,
-                        obscureText: _secureText,
-                        decoration: const InputDecoration.collapsed(
-                            // prefixIcon: Icon(Icons.key),
-                            //
-                            // suffixIcon:
-                            // border: OutlineInputBorder(
-                            //     borderRadius: BorderRadius.circular(20)),
-                            hintText: "Confirm Password"),
-                        validator: (confirmPasswordValue) {
-                          if (confirmPasswordValue == null) {
-                            return 'Please confirm your password';
-                          }
-                          confirmPassword = confirmPasswordValue;
-                          return null;
-                        }),
+                      controller: _passwordController,
+                      // keyboardType: TextInputType.text,
+                      obscureText: _secureText,
+                      decoration: const InputDecoration.collapsed(
+                          // prefixIcon: Icon(Icons.key),
+                          //
+                          // suffixIcon:
+                          // border: OutlineInputBorder(
+                          //     borderRadius: BorderRadius.circular(20)),
+                          hintText: "Confirm Password"),
+                      // validator: (confirmPasswordValue) {
+                      //   if (confirmPasswordValue == null) {
+                      //     return 'Please confirm your password';
+                      //   }
+                      //   confirmPassword = confirmPasswordValue;
+                      //   return null;
+                      // }
+                    ),
                   ),
                   IconButton(
                     hoverColor: Colors.transparent,
@@ -356,7 +379,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       style: TextStyle(fontSize: 16),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/home');
+                      // Navigator.pushNamed(context, '/home');
+                      setState(() {
+                        isLoading = true;
+                      });
+                      handleRegister();
                     },
                   ),
                 )),

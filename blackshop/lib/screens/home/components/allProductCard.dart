@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import '../../../models/ProductModels.dart';
 
-class ProductCard extends StatelessWidget {
+class AllProductCard extends StatelessWidget {
   final ProductModels product;
-  ProductCard(this.product);
-  // const ProductCard({
+  AllProductCard(this.product);
+  // const AllProductCard({
   //   // Key? key,
   //   // required this.image,
   //   // required this.title,
@@ -30,7 +30,8 @@ class ProductCard extends StatelessWidget {
             ),
           )),
       child: Container(
-        width: 154,
+        // height: 250,
+        margin: EdgeInsets.all(10),
         padding: const EdgeInsets.all(defaultPadding / 2),
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -39,6 +40,7 @@ class ProductCard extends StatelessWidget {
         child: Column(
           children: [
             Container(
+              // height: 193,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: bgColor,

@@ -1,40 +1,49 @@
-class CategoryModels {
+import 'package:blackshop/models/ProductModels.dart';
+
+class DetailCategoryModels {
   int? id;
-  String? name;
   String? image;
+  String? name;
   int? parentId;
   String? slug;
   String? createdAt;
   String? updatedAt;
+  List<ProductModels>? product;
 
-  CategoryModels(
-      {this.id,
-      this.name,
-      this.image,
-      this.parentId,
-      this.slug,
-      this.createdAt,
-      this.updatedAt});
+  DetailCategoryModels({
+    this.id,
+    this.image,
+    this.name,
+    this.parentId,
+    this.slug,
+    this.createdAt,
+    this.updatedAt,
+    this.product,
+  });
 
-  CategoryModels.fromJson(Map<String, dynamic> json) {
+  DetailCategoryModels.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
     image = json['image'];
+    name = json['name'];
     parentId = json['parent_id'];
     slug = json['slug'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    product = json['product']
+        .map<ProductModels>((product) => ProductModels.fromJson(product))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
     data['image'] = this.image;
+    data['name'] = this.name;
     data['parent_id'] = this.parentId;
     data['slug'] = this.slug;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['product'] = product?.map((product) => product.toJson()).toList();
     return data;
   }
 }

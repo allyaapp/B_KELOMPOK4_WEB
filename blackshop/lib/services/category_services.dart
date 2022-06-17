@@ -1,12 +1,12 @@
 import 'dart:convert';
+import 'package:blackshop/models/CategoryModels.dart';
 import 'package:http/http.dart' as http;
-import 'package:blackshop/models/ProductModels.dart';
 
-class ProductService {
+class CategoryService {
   String baseUrl = "https://c43e-180-253-161-138.ap.ngrok.io/api";
 
-  Future<List<ProductModels>> getProducts() async {
-    var url = '$baseUrl/Product';
+  Future<List<CategoryModels>> getCategory() async {
+    var url = '$baseUrl/categories';
     var headers = {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -18,15 +18,15 @@ class ProductService {
 
     if (response.statusCode == 202) {
       List data = jsonDecode(response.body)['data'];
-      List<ProductModels> products = [];
+      List<CategoryModels> category = [];
 
       for (var item in data) {
-        products.add(ProductModels.fromJson(item));
+        category.add(CategoryModels.fromJson(item));
       }
 
-      return products;
+      return category;
     } else {
-      throw Exception('Gagal Get Products!');
+      throw Exception('Gagal Get Category!');
     }
   }
 }

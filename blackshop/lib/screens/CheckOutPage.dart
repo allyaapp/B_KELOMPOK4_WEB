@@ -1,7 +1,14 @@
+import 'dart:convert';
+import 'package:blackshop/LoginScreen.dart';
+import 'package:blackshop/models/CartModels.dart';
+import 'package:blackshop/providers/CartProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
 import 'package:blackshop/utils/CustomTextStyle.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class CheckOutPage extends StatefulWidget {
   @override
@@ -10,6 +17,98 @@ class CheckOutPage extends StatefulWidget {
 
 class _CheckOutPageState extends State<CheckOutPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+  late SharedPreferences sharedPreferences;
+  String name = "";
+  String phone_number = "";
+  String address = "";
+  int citie_id = 0;
+  String code = "";
+  String nameKurir = "";
+  String service = "";
+  String description = "";
+  String value = "";
+  int price = 0;
+  String etd = "";
+  bool loading = true;
+
+  @override
+  void initState() {
+    ongkosKirim();
+    getData();
+    checkLoginStatus();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getData() async {
+    if (mounted) {
+      SharedPreferences sharedPreferences =
+          await SharedPreferences.getInstance();
+      setState(() {
+        name = sharedPreferences.getString("name")!;
+        phone_number = sharedPreferences.getString("phone_number")!;
+        address = sharedPreferences.getString("address")!;
+        citie_id = sharedPreferences.getInt("citie_id")!;
+      });
+    }
+  }
+
+  ongkosKirim() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    Uri url = Uri.parse("https://api.rajaongkir.com/starter/cost");
+    try {
+      CartProvider cartProvider =
+          Provider.of<CartProvider>(context, listen: false);
+      int totalWeight = 0;
+      for (int i = 0; i < cartProvider.carts.length; i++) {
+        totalWeight += cartProvider.carts[i].cartWeight!;
+      }
+      final response = await http.post(
+        url,
+        body: {
+          'origin': "252",
+          'destination': sharedPreferences.getInt("citie_id")!.toString(),
+          'weight': totalWeight.toString(),
+          'courier': "jne",
+        },
+        headers: {
+          'key': '69814309705ff72181423c2398d28c94',
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+          'Accept': 'application/json'
+        },
+      );
+      // print(response.body);
+      var data = jsonDecode(response.body) as Map<String, dynamic>;
+      setState(() {
+        code = data["rajaongkir"]["results"][0]['code'];
+        nameKurir = data["rajaongkir"]["results"][0]['name'];
+        service = data["rajaongkir"]["results"][0]['costs'][1]['service'];
+        description =
+            data["rajaongkir"]["results"][0]['costs'][1]['description'];
+        value = data["rajaongkir"]["results"][0]['costs'][1]['cost'][0]['value']
+            .toString();
+
+        etd = data["rajaongkir"]["results"][0]['costs'][1]['cost'][0]['etd'];
+      });
+      setState(() {
+        price = int.parse(value);
+        loading = false;
+      });
+      print(etd);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+          (Route<dynamic> route) => false);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +278,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    "Anton Sebrianto (Default)",
+                    // "Anton Sebrianto (Default)",
+                    name,
                     style: CustomTextStyle.textFormFieldSemiBold
                         .copyWith(fontSize: 14),
                   ),
@@ -198,10 +298,10 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   )
                 ],
               ),
-              createAddressText(
-                  "Kaliurang Green Garden Regency", 16),
-              createAddressText("Sumbersari", 6),
-              createAddressText("Jember", 6),
+              // createAddressText("Kaliurang Green Garden Regency", 16),
+              createAddressText(address, 16),
+              // createAddressText("Sumbersari", 6),
+              // createAddressText("Jember", 6),
               SizedBox(
                 height: 6,
               ),
@@ -212,7 +312,9 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       style: CustomTextStyle.textFormFieldMedium
                           .copyWith(fontSize: 12, color: Colors.grey.shade800)),
                   TextSpan(
-                      text: "082228905435",
+                      text:
+                          // "082228905435",
+                          phone_number,
                       style: CustomTextStyle.textFormFieldBold
                           .copyWith(color: Colors.black, fontSize: 12)),
                 ]),
@@ -310,7 +412,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(
-                "Standard Delivery",
+                // "Standard Delivery",
+                nameKurir,
                 style: CustomTextStyle.textFormFieldMedium.copyWith(
                     color: Colors.black,
                     fontSize: 14,
@@ -320,7 +423,8 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 height: 5,
               ),
               Text(
-                "Get it by 10 June - 12 June | Free Delivery",
+                // "Get it by 10 June - 12 June | Free Delivery",
+                service + " | " + etd + " days",
                 style: CustomTextStyle.textFormFieldMedium.copyWith(
                   color: Colors.black,
                   fontSize: 12,
@@ -363,43 +467,64 @@ class _CheckOutPageState extends State<CheckOutPage> {
   }
 
   checkoutListItem() {
+    CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        children: <Widget>[
-          Container(
-            child: Image(
-              image: AssetImage(
-                "assets/images/kripca.png",
+      child: Column(
+        children: cartProvider.carts
+            .map(
+              (e) => Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      child: Image(
+                        image: NetworkImage(
+                          "https://a1bd-180-253-165-54.ap.ngrok.io/storage/products/" +
+                              e.product!.image.toString(),
+                        ),
+                        width: 35,
+                        height: 45,
+                        fit: BoxFit.fitHeight,
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1)),
+                    ),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(e.product!.name.toString()),
+                    // RichText(
+                    //   text: TextSpan(children: [
+                    //     TextSpan(
+                    //         text: "Estimated Delivery : ",
+                    //         style: CustomTextStyle.textFormFieldMedium
+                    //             .copyWith(fontSize: 12)),
+                    //     TextSpan(
+                    //         text: loading ? 'loading...' : etd,
+                    //         style: CustomTextStyle.textFormFieldMedium.copyWith(
+                    //             fontSize: 12, fontWeight: FontWeight.w600))
+                    //   ]),
+                    // )
+                  ],
+                ),
               ),
-              width: 35,
-              height: 45,
-              fit: BoxFit.fitHeight,
-            ),
-            decoration:
-                BoxDecoration(border: Border.all(color: Colors.grey, width: 1)),
-          ),
-          SizedBox(
-            width: 8,
-          ),
-          RichText(
-            text: TextSpan(children: [
-              TextSpan(
-                  text: "Estimated Delivery : ",
-                  style: CustomTextStyle.textFormFieldMedium
-                      .copyWith(fontSize: 12)),
-              TextSpan(
-                  text: "11 June 2022 ",
-                  style: CustomTextStyle.textFormFieldMedium
-                      .copyWith(fontSize: 12, fontWeight: FontWeight.w600))
-            ]),
-          )
-        ],
+            )
+            .toList(),
       ),
     );
   }
 
   priceSection() {
+    CartProvider cartProvider =
+        Provider.of<CartProvider>(context, listen: false);
+    int total = 0;
+    for (int i = 0; i < cartProvider.carts.length; i++) {
+      total += (cartProvider.carts[i].cartPrice! * cartProvider.carts[i].qty!);
+    }
+    int fee = 2000;
+    int order_total = total + fee + price;
     return Container(
       margin: EdgeInsets.all(4),
       decoration: BoxDecoration(
@@ -439,14 +564,14 @@ class _CheckOutPageState extends State<CheckOutPage> {
               SizedBox(
                 height: 8,
               ),
-              createPriceItem("Total", getFormattedCurrency(12000, 2),
+              createPriceItem("Total", getFormattedCurrency(total, 2),
                   Colors.grey.shade700),
-              createPriceItem("Aplication Fee", getFormattedCurrency(2000, 2),
+              createPriceItem("Aplication Fee", getFormattedCurrency(fee, 2),
                   Colors.grey.shade700),
               // createPriceItem(
               //     "Tax", getFormattedCurrency(96), Colors.grey.shade700),
-              createPriceItem(
-                  "Delivery Charges", "FREE", Colors.teal.shade300),
+              createPriceItem("Delivery Charges",
+                  getFormattedCurrency(price, 2), Colors.teal.shade300),
               // createPriceItem("Order Total", getFormattedCurrency(14000, 2),
               //     Colors.grey.shade700),
               SizedBox(
@@ -471,7 +596,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                         .copyWith(color: Colors.black, fontSize: 12),
                   ),
                   Text(
-                    getFormattedCurrency(14000, 2),
+                    getFormattedCurrency(order_total, 2),
                     style: CustomTextStyle.textFormFieldMedium
                         .copyWith(color: Colors.black, fontSize: 12),
                   )

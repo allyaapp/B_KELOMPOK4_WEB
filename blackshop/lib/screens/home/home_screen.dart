@@ -1,28 +1,34 @@
 import 'dart:convert';
 
+import 'package:blackshop/LoginScreen.dart';
+import 'package:blackshop/providers/CartProvider.dart';
 import 'package:blackshop/providers/ProductProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:blackshop/constants.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../providers/CategoryProvider.dart';
 import '../DrawerScreen.dart';
 import 'components/categories.dart';
 import 'components/new_arrival_products.dart';
 import 'components/popular_products.dart';
 import 'components/search_form.dart';
 import 'package:blackshop/screens/profile.dart';
-import 'package:badges/badges.dart';
+// import 'package:badges/badges.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
+  // const HomeScreen({Key? key}) : super(key: key);
+  // final User user;
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late SharedPreferences sharedPreferences;
+
   // List _product = [];
   // void getData() async {
   //   http.Response res =
@@ -43,7 +49,17 @@ class _HomeScreenState extends State<HomeScreen> {
     // TODO: implement initState
     // getData();
     // print(_product);
+    checkLoginStatus();
     super.initState();
+  }
+
+  checkLoginStatus() async {
+    sharedPreferences = await SharedPreferences.getInstance();
+    if (sharedPreferences.getString("token") == null) {
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (BuildContext context) => LoginScreen()),
+          (Route<dynamic> route) => false);
+    }
   }
 
   int _counter = 0;
@@ -52,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     // print(_product);
     ProductProvider productProvider = Provider.of<ProductProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: const DrawerScreen(),
@@ -78,17 +95,19 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
         actions: [
-          _shoppingCartBadge(),
-          // IconButton(
-          //   // icon: SvgPicture.asset("assets/icons/Notification.svg"),
-          //   padding: const EdgeInsets.only(right: 8),
-          //   icon: const Icon(Icons.shopping_cart),
-          //   iconSize: 20,
-          //   onPressed: () {
-          //     Navigator.pushNamed(context, '/cart');
-          //   },
-
-          // ),
+          // _shoppingCartBadge(),
+          IconButton(
+            // icon: SvgPicture.asset("assets/icons/Notification.svg"),
+            padding: const EdgeInsets.only(right: 8),
+            icon: const Icon(Icons.shopping_cart),
+            iconSize: 20,
+            onPressed: () async {
+              print(sharedPreferences.getInt("id").toString());
+              await Provider.of<CartProvider>(context, listen: false)
+                  .getCart(id: sharedPreferences.getInt("id").toString());
+              Navigator.pushNamed(context, '/cart');
+            },
+          ),
         ],
       ),
       body: SingleChildScrollView(
@@ -98,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: GestureDetector(
           onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
-              new TextEditingController().clear();
+            new TextEditingController().clear();
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.symmetric(vertical: defaultPadding),
                 child: SearchForm(),
               ),
-              const Categories(),
+              Categories(),
               const NewArrivalProducts(),
               const PopularProducts(),
             ],
@@ -128,26 +147,26 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _shoppingCartBadge() {
-    return Badge(
-      badgeColor: Colors.white,
-      position: BadgePosition.topStart(top: 0, start: -1),
-      animationDuration: Duration(milliseconds: 300),
-      animationType: BadgeAnimationType.slide,
-      badgeContent: Text(
-        _counter.toString(),
-        style: TextStyle(color: Colors.black),
-      ),
-      child: IconButton(
-          padding: const EdgeInsets.only(right: 8),
-          icon: Icon(
-            Icons.shopping_cart,
-            color: Colors.black,
-          ),
-          iconSize: 20,
-          onPressed: () {
-            Navigator.pushNamed(context, '/cart');
-          }),
-    );
-  }
+  // Widget _shoppingCartBadge() {
+  //   return Badge(
+  //     badgeColor: Colors.white,
+  //     position: BadgePosition.topStart(top: 0, start: -1),
+  //     animationDuration: Duration(milliseconds: 300),
+  //     animationType: BadgeAnimationType.slide,
+  //     badgeContent: Text(
+  //       _counter.toString(),
+  //       style: TextStyle(color: Colors.black),
+  //     ),
+  //     child: IconButton(
+  //         padding: const EdgeInsets.only(right: 8),
+  //         icon: Icon(
+  //           Icons.shopping_cart,
+  //           color: Colors.black,
+  //         ),
+  //         iconSize: 20,
+  //         onPressed: () {
+  //           Navigator.pushNamed(context, '/cart');
+  //         }),
+  //   );
+  // }
 }

@@ -1,21 +1,50 @@
+import 'package:blackshop/providers/AddtoCartProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:blackshop/constants.dart';
 import 'package:blackshop/models/Product.dart';
-import 'package:badges/badges.dart';
+// import 'package:badges/badges.dart';
 import 'package:like_button/like_button.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/ProductModels.dart';
 import 'components/color_dot.dart';
 
-class DetailsScreen extends StatelessWidget {
+class DetailsScreen extends StatefulWidget {
   // const DetailsScreen({Key? key}) : super(key: key);
   final ProductModels product;
   DetailsScreen(this.product);
 
   @override
+  State<DetailsScreen> createState() => _DetailsScreenState();
+}
+
+class _DetailsScreenState extends State<DetailsScreen> {
+  late SharedPreferences sharedPreferences;
+  String customerId = "";
+
+  @override
+  void initState() {
+    getData();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  getData() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    if (mounted) {
+      setState(() {
+        customerId = sharedPreferences.getInt("id").toString();
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(product.image);
+    AddtoCartProvider addtocartProvider =
+        Provider.of<AddtoCartProvider>(context);
+    print(widget.product.image);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -41,7 +70,8 @@ class DetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              "https://63fd-116-206-40-2.ap.ngrok.io/storage/" + product.image.toString(),
+              "https://c43e-180-253-161-138.ap.ngrok.io/storage/products/" +
+                  widget.product.image.toString(),
               height: MediaQuery.of(context).size.height * 0.4,
               fit: BoxFit.cover,
             ),
@@ -64,7 +94,7 @@ class DetailsScreen extends StatelessWidget {
                       children: [
                         Expanded(
                           child: Text(
-                            product.name.toString(),
+                            widget.product.name.toString(),
                             style: Theme.of(context).textTheme.headline6,
                           ),
                         ),
@@ -89,13 +119,14 @@ class DetailsScreen extends StatelessWidget {
                     // padding: EdgeInsets.symmetric(vertical: defaultPadding),
                     // child:
                     Text(
-                      product.description.toString(),
+                      widget.product.description.toString(),
+                      maxLines: 3,
                       // style: Theme.of(context).textTheme.headline6,
                     ),
                     // ),
                     const SizedBox(height: defaultPadding),
                     Text(
-                      "Rp" + product.price.toString(),
+                      "Rp" + widget.product.price.toString(),
                       style: Theme.of(context).textTheme.headline6,
                     ),
 
@@ -130,6 +161,12 @@ class DetailsScreen extends StatelessWidget {
                             // setState(() {
                             //   // _counter++;
                             // });
+                            addtocartProvider.addCart(
+                              customerId: customerId,
+                              productId: widget.product.id.toString(),
+                              cartPrice: widget.product.price.toString(),
+                              cartWeight: widget.product.weight.toString(),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                               primary: primaryColor,
@@ -147,28 +184,4 @@ class DetailsScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Widget _shoppingCartBadge() {
-  //   return Badge(
-  //     badgeColor: Colors.white,
-  //     position: BadgePosition.topStart(top: 0, start: -1),
-  //     animationDuration: Duration(milliseconds: 300),
-  //     animationType: BadgeAnimationType.slide,
-  //     // badgeContent: Text(
-  //       // _counter.toString(),
-  //     //   style: TextStyle(color: Colors.black),
-  //     // ),
-  //     child: IconButton(
-  //         padding: const EdgeInsets.only(right: 8),
-  //         icon: Icon(
-  //           Icons.shopping_cart,
-  //           color: Colors.black,
-  //         ),
-  //         iconSize: 20,
-  //         onPressed: () {
-  //           Navigator.pushNamed(context, '/cart');
-  //           Navigator.pushNamed(context, '/cart');
-  //         }),
-  //   );
-  // }
 }

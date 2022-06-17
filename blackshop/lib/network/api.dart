@@ -2,39 +2,36 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Network{
-  final String _url = 'https://70fa-180-253-167-167.ap.ngrok.io/Aplikasi_Penjualan';
+class Network {
+  final String _url = 'https://66f0-202-67-41-10.ap.ngrok.io/api';
   // 192.168.1.2 is my IP, change with your IP address
   // var token;
 
-  _getToken() async{
+  _getToken() async {
     SharedPreferences localStorage = await SharedPreferences.getInstance();
     // token = jsonDecode(localStorage.getString('token'))['token'];
     //  token = jsonDecode(localStorage.getString('token') ?? '')['token'];
     // print('Token $token');
   }
 
-  auth(data, apiURL) async{
+  auth(data, apiURL) async {
     var fullUrl = _url + apiURL;
-    return await http.post(Uri.parse(fullUrl)
-  ,
-      body: jsonEncode(data),
-      headers: _setHeaders()
-    );
+    return await http.post(Uri.parse(fullUrl),
+        body: jsonEncode(data), headers: _setHeaders());
   }
 
-  getData(apiURL) async{
+  getData(apiURL) async {
     var fullUrl = _url + apiURL;
     // await _getToken();
     return await http.get(Uri.parse(fullUrl)
-     
-      // headers: _setHeaders(),
-    );
+
+        // headers: _setHeaders(),
+        );
   }
 
   _setHeaders() => {
-    'Content-type': 'application/json',
-    'Accept': 'application/json',
-    // 'Authorization': 'Bearer $token',
-  };
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+        // 'Authorization': 'Bearer $token',
+      };
 }
