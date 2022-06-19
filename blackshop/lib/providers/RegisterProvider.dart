@@ -25,6 +25,7 @@ class RegisterProvider with ChangeNotifier {
       RegisterModels data = await RegisterService()
           .register(name: name, email: email, password: password);
       _user = data;
+      print(data);
       return true;
     } catch (e) {
       return false;

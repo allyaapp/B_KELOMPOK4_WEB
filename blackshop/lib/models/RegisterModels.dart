@@ -1,28 +1,4 @@
 class RegisterModels {
-  Data? data;
-  String? accessToken;
-  String? tokenType;
-
-  RegisterModels({this.data, this.accessToken, this.tokenType});
-
-  RegisterModels.fromJson(Map<String, dynamic> json) {
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-    accessToken = json['access_token'];
-    tokenType = json['token_type'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.data != null) {
-      data['data'] = this.data?.toJson();
-    }
-    data['access_token'] = this.accessToken;
-    data['token_type'] = this.tokenType;
-    return data;
-  }
-}
-
-class Data {
   String? name;
   String? email;
   String? updatedAt;
@@ -30,7 +6,7 @@ class Data {
   int? id;
   String? profilePhotoUrl;
 
-  Data(
+  RegisterModels(
       {this.name,
       this.email,
       this.updatedAt,
@@ -38,7 +14,7 @@ class Data {
       this.id,
       this.profilePhotoUrl});
 
-  Data.fromJson(Map<String, dynamic> json) {
+  RegisterModels.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     email = json['email'];
     updatedAt = json['updated_at'];

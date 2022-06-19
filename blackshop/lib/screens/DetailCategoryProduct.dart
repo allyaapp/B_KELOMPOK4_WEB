@@ -50,7 +50,7 @@ class _DetailCategoryProductPageState extends State<DetailCategoryProductPage> {
         //     preferredSize: const Size(double.infinity, 44)),
         title: Text(
           "Blackshop " +
-              detailCategoryProvider.category[0].name.toString() +
+              detailCategoryProvider.category![0].name.toString() +
               " Products",
           style: CustomTextStyle.textFormFieldBold.copyWith(fontSize: 16),
         ),
@@ -195,7 +195,7 @@ class _DetailCategoryProductPageState extends State<DetailCategoryProductPage> {
             ),
             Image(
               image: NetworkImage(
-                  "https://a1bd-180-253-165-54.ap.ngrok.io/storage/products/" +
+                  "https://blackshop.ws-tif.com/storage/products/" +
                       detailCategoryProvider.category[0].product![0].image
                           .toString()),
               // image: NetworkImage,

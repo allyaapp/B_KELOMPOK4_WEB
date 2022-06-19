@@ -34,8 +34,9 @@ class _CartPageState extends State<CartPage> {
   // bool showRaisedButtonBadge = true;
   late SharedPreferences sharedPreferences;
 
-  int citie_id = 0;
+  String citie_id = "";
   int origin = 252;
+  int id = 0;
 
   @override
   void initState() {
@@ -48,7 +49,8 @@ class _CartPageState extends State<CartPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (mounted) {
       setState(() {
-        citie_id = sharedPreferences.getInt("citie_id")!;
+        citie_id = sharedPreferences.getString("citie_id")!;
+        id = sharedPreferences.getInt("id")!;
       });
     }
   }
@@ -248,7 +250,7 @@ class _CartPageState extends State<CartPage> {
                     color: Colors.blue.shade200,
                     image: DecorationImage(
                         image: NetworkImage(
-                          "https://cdd9-180-253-162-136.ap.ngrok.io/storage/products/" +
+                          "https://blackshop.ws-tif.com/images/" +
                               cart.product!.image.toString(),
                         ),
                         fit: BoxFit.cover)),

@@ -3,7 +3,7 @@ import 'package:blackshop/models/CategoryModels.dart';
 import 'package:http/http.dart' as http;
 
 class CategoryService {
-  String baseUrl = "https://cdd9-180-253-162-136.ap.ngrok.io/api";
+  String baseUrl = "https://blackshop.ws-tif.com/api";
 
   Future<List<CategoryModels>> getCategory() async {
     var url = '$baseUrl/categories';

@@ -18,14 +18,14 @@ class CardOrder extends StatefulWidget {
 class _CardOrderState extends State<CardOrder> {
   @override
   void initState() {
-    setState(() {});
+    // setState(() {});
+
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    OrderProvider orderProvider = Provider.of<OrderProvider>(context);
     // print(order.data!.invoice.toString());
     return GestureDetector(
       onTap: () => Navigator.push(

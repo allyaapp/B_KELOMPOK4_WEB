@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:blackshop/models/ProductModels.dart';
 
 class ProductService {
-  String baseUrl = "https://cdd9-180-253-162-136.ap.ngrok.io/api";
+  String baseUrl = "https://blackshop.ws-tif.com/api";
 
   Future<List<ProductModels>> getProducts() async {
     var url = '$baseUrl/Product';

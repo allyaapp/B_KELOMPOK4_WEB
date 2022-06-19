@@ -17,7 +17,6 @@ import 'package:blackshop/screens/CheckOutPage.dart';
 import 'package:blackshop/screens/DetailCategoryProduct.dart';
 import 'package:blackshop/screens/HistoryPage.dart';
 import 'package:blackshop/screens/SearchPage.dart';
-import 'package:blackshop/screens/UploadProofPembayaran.dart';
 import 'package:blackshop/screens/home/home_screen.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:blackshop/screens/splashScreen.dart';
@@ -67,7 +66,6 @@ class MyApp extends StatelessWidget {
           "/cart": (context) => CartPage(),
           "/checkout": (context) => CheckOutPage(),
           "/search": (context) => SearchPage(),
-          "/payment": (context) => UploadProofPembayaran(),
           "/history": (context) => HistoryPage(),
         },
       ),

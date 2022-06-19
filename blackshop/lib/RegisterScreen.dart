@@ -18,9 +18,9 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
+  // final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _usernameController = TextEditingController();
+  // final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
@@ -67,10 +67,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
     handleRegister() async {
       if (await registerProvider.register(
-          name: _fullNameController.text,
-          email: _emailController.text,
-          password: _passwordController.text)) {
-        print(registerProvider.user);
+          name: _fullNameController.text.toString(),
+          email: _emailController.text.toString(),
+          password: _passwordController.text.toString())) {
+        // print(registerProvider.user);
         Navigator.pushNamed(context, '/login');
       } else {
         print("Register Gagal");
@@ -164,35 +164,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              // height: 50,
-              // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                // border: Border.all(color: Colors.black),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 4,
-                    offset: const Offset(0, 4), // Shadow position
-                  ),
-                ],
-              ),
-              child: Expanded(
-                child: TextField(
-                  controller: _phoneController,
-                  decoration: const InputDecoration.collapsed(
-                      // border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(20)),
-                      hintText: "Phone"),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+            // Container(
+            //   // height: 50,
+            //   // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(20),
+            //     // border: Border.all(color: Colors.black),
+            //     color: Colors.white,
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.black.withOpacity(0.25),
+            //         blurRadius: 4,
+            //         offset: const Offset(0, 4), // Shadow position
+            //       ),
+            //     ],
+            //   ),
+            //   child: Expanded(
+            //     child: TextField(
+            //       controller: _phoneController,
+            //       decoration: const InputDecoration.collapsed(
+            //           // border: OutlineInputBorder(
+            //           //     borderRadius: BorderRadius.circular(20)),
+            //           hintText: "Phone"),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
             Container(
               // height: 50,
               // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -222,35 +222,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
             const SizedBox(
               height: 15,
             ),
-            Container(
-              // height: 50,
-              // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                // border: Border.all(color: Colors.black),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    blurRadius: 4,
-                    offset: const Offset(0, 4), // Shadow position
-                  ),
-                ],
-              ),
-              child: Expanded(
-                child: TextField(
-                  controller: _usernameController,
-                  decoration: const InputDecoration.collapsed(
-                      // border: OutlineInputBorder(
-                      //     borderRadius: BorderRadius.circular(20)),
-                      hintText: "Username"),
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
+            // Container(
+            //   // height: 50,
+            //   // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+            //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+            //   decoration: BoxDecoration(
+            //     borderRadius: BorderRadius.circular(20),
+            //     // border: Border.all(color: Colors.black),
+            //     color: Colors.white,
+            //     boxShadow: [
+            //       BoxShadow(
+            //         color: Colors.black.withOpacity(0.25),
+            //         blurRadius: 4,
+            //         offset: const Offset(0, 4), // Shadow position
+            //       ),
+            //     ],
+            //   ),
+            //   child: Expanded(
+            //     child: TextField(
+            //       controller: _usernameController,
+            //       decoration: const InputDecoration.collapsed(
+            //           // border: OutlineInputBorder(
+            //           //     borderRadius: BorderRadius.circular(20)),
+            //           hintText: "Username"),
+            //     ),
+            //   ),
+            // ),
+            // const SizedBox(
+            //   height: 15,
+            // ),
             Container(
               // height: 50,
               // padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -285,7 +285,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       //   if (passwordValue == null) {
                       //     return 'Please enter your password';
                       //   }
-                      //   password = passwordValue;
+                      //   // password = passwordValue;
                       //   return null;
                       // }
                     ),
@@ -324,7 +324,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      controller: _passwordController,
+                      controller: _confirmPasswordController,
                       // keyboardType: TextInputType.text,
                       obscureText: _secureText,
                       decoration: const InputDecoration.collapsed(
@@ -335,10 +335,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           //     borderRadius: BorderRadius.circular(20)),
                           hintText: "Confirm Password"),
                       // validator: (confirmPasswordValue) {
-                      //   if (confirmPasswordValue == null) {
+                      //   if (confirmPasswordValue == null)
                       //     return 'Please confirm your password';
-                      //   }
-                      //   confirmPassword = confirmPasswordValue;
+                      //   if (confirmPasswordValue != )
+                      //     return 'Password do not match';
+                      //   // confirmPassword = confirmPasswordValue;
+
                       //   return null;
                       // }
                     ),

@@ -3,7 +3,7 @@ import 'package:blackshop/models/AuthModels.dart';
 import 'package:http/http.dart' as http;
 
 class AuthService {
-  String baseUrl = "https://cdd9-180-253-162-136.ap.ngrok.io/api";
+  String baseUrl = "https://blackshop.ws-tif.com/api";
   Future<AuthModels> masuk(String email, String password) async {
     var url = '$baseUrl/login';
     var headers = {

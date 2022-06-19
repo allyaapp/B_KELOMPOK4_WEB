@@ -3,7 +3,7 @@ import 'package:blackshop/models/DetailCategoryModels.dart';
 import 'package:http/http.dart' as http;
 
 class DetailCategoryServices {
-  String baseUrl = "https://cdd9-180-253-162-136.ap.ngrok.io/api";
+  String baseUrl = "https://blackshop.ws-tif.com/api";
 
   Future<List<DetailCategoryModels>> getListCategory({String? slug}) async {
     var url = '$baseUrl/detailcategories?slug=$slug';
@@ -14,7 +14,7 @@ class DetailCategoryServices {
 
     var response = await http.get(Uri.parse(url), headers: headers);
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 202) {
       List data = jsonDecode(response.body)['data']['data'];

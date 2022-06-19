@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:blackshop/models/CartModels.dart';
 
 class CartService {
-  String baseUrl = "https://cdd9-180-253-162-136.ap.ngrok.io/api";
+  String baseUrl = "https://blackshop.ws-tif.com/api";
 
   Future<List<CartModels>> getCart({String? id}) async {
     var url = '$baseUrl/cart?id_customer=$id';
@@ -13,7 +13,7 @@ class CartService {
     };
     final response = await http.get(Uri.parse(url), headers: headers);
 
-    print(response.body);
+    // print(response.body);
 
     if (response.statusCode == 202) {
       List data = jsonDecode(response.body)['data'];

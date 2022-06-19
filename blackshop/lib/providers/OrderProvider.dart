@@ -19,13 +19,13 @@ class OrderProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void setOrder(CheckoutModel order) {
-    _order = order;
+  set listOrdersDone(List<OrderModels> listOrdersDone) {
+    _listOrdersDone = listOrdersDone;
     notifyListeners();
   }
 
-  set listOrdersDone(List<OrderModels> listOrdersDone) {
-    _listOrdersDone = listOrdersDone;
+  void setOrder(CheckoutModel order) {
+    _order = order;
     notifyListeners();
   }
 

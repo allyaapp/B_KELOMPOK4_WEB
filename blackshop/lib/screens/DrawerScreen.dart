@@ -1,9 +1,10 @@
 import 'dart:convert';
 
+import 'package:blackshop/providers/OrderProvider.dart';
 import 'package:blackshop/screens/HistoryPage.dart';
-import 'package:blackshop/screens/UploadProofPembayaran.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:blackshop/LoginScreen.dart';
 
@@ -19,6 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   String name = "";
   String profile = "";
   String email = "";
+  int id = 0;
 
   @override
   void initState() {
@@ -32,6 +34,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (mounted) {
       setState(() {
+        id = sharedPreferences.getInt("id")!;
         name = sharedPreferences.getString("name")!;
         profile = sharedPreferences.getString("profile")!;
         email = sharedPreferences.getString("email")!;
@@ -129,7 +132,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
         DrawerListTile(
           iconData: Icons.history,
           title: "History",
-          onTilePressed: () {
+          onTilePressed: () async {
+            await Provider.of<OrderProvider>(context, listen: false)
+                .getOrder(id: id.toString());
+            await Provider.of<OrderProvider>(context, listen: false)
+                .getOrderDone(id: id.toString());
             Navigator.pushNamed((context), '/history');
           },
         ),

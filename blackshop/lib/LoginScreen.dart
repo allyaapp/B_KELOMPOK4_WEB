@@ -63,9 +63,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     var jsonData = null;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var response = await http.post(
-        Uri.parse("https://cdd9-180-253-162-136.ap.ngrok.io/api/login"),
-        body: data);
+    var response = await http
+        .post(Uri.parse("https://blackshop.ws-tif.com/api/login"), body: data);
     if (response.statusCode == 200) {
       jsonData = json.decode(response.body);
       print(response.body);
@@ -76,7 +75,7 @@ class _LoginScreenState extends State<LoginScreen> {
         sharedPreferences.setInt("id", jsonData['data']['user']['id']);
         sharedPreferences.setString("name", jsonData['data']['user']['name']);
         sharedPreferences.setString("email", jsonData['data']['user']['email']);
-        sharedPreferences.setInt(
+        sharedPreferences.setString(
             "citie_id", jsonData['data']['user']['citie_id']);
         sharedPreferences.setString("profile", jsonData['data']['profile']);
         sharedPreferences.setString(

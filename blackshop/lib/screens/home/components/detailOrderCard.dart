@@ -53,7 +53,7 @@ class _CardOrderDetailState extends State<CardOrderDetail> {
     OrderProvider orderProvider = Provider.of<OrderProvider>(context);
     void _uploadImage() async {
       var uri = Uri.parse(
-          'https://cdd9-180-253-162-136.ap.ngrok.io/api/checkout/payment/');
+          'https://blackshop.ws-tif.com/api/checkout/payment/');
       var headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

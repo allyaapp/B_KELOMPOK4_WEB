@@ -4,13 +4,13 @@ class ProductModels {
   int? id;
   String? name;
   String? slug;
-  int? categoryId;
+  String? categoryId;
   String? description;
   String? image;
-  int? price;
-  int? stock;
-  int? weight;
-  int? status;
+  String? price;
+  String? stock;
+  String? weight;
+  String? status;
   String? createdAt;
   String? updatedAt;
   CategoryModels? category;

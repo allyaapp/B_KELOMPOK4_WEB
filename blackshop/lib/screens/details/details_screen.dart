@@ -75,7 +75,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         child: Column(
           children: [
             Image.network(
-              "https://cdd9-180-253-162-136.ap.ngrok.io/storage/products/" +
+              "https://blackshop.ws-tif.com/images/" +
                   widget.product.image.toString(),
               height: MediaQuery.of(context).size.height * 0.4,
               fit: BoxFit.cover,
