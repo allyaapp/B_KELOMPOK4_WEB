@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
                     BorderRadius.all(Radius.circular(defaultBorderRadius)),
               ),
               child: Image.network(
-                "https://c43e-180-253-161-138.ap.ngrok.io/storage/products/" +
+                "https://cdd9-180-253-162-136.ap.ngrok.io/storage/products/" +
                     product.image.toString(),
                 // height: 132,
                 fit: BoxFit.cover,

@@ -1,26 +1,32 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:blackshop/providers/CartProvider.dart';
+import 'package:blackshop/providers/OrderProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:blackshop/utils/CustomTextStyle.dart';
 import 'package:blackshop/utils/CustomUtils.dart';
 import 'package:blackshop/models/CartModels.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:file_picker/file_picker.dart';
 
 // import 'package:badges/badges.dart';
 
 import 'CheckOutPage.dart';
 
-class CartPage extends StatefulWidget {
+class UploadProofPembayaran extends StatefulWidget {
   // final CartModels cartModels;
-  // CartPage(this.cartModels);
+  // UploadProofPembayaran(this.cartModels);
   @override
-  _CartPageState createState() => _CartPageState();
+  _UploadProofPembayaranState createState() => _UploadProofPembayaranState();
 }
 
-class _CartPageState extends State<CartPage> {
+class _UploadProofPembayaranState extends State<UploadProofPembayaran> {
   // addCart() async {
   //   var url = Uri.parse("http://127.0.0.1:8000/api/cart?id_customer=9");
   //   final response = await http.get
@@ -33,10 +39,24 @@ class _CartPageState extends State<CartPage> {
   // }
   // bool showRaisedButtonBadge = true;
   late SharedPreferences sharedPreferences;
-
+  int id = 0;
+  String name = "";
+  String phone_number = "";
+  String address = "";
   int citie_id = 0;
-  int origin = 252;
+  String code = "";
+  String nameKurir = "";
+  String service = "";
+  String description = "";
+  String value = "";
+  int price = 0;
+  String etd = "";
+  bool loading = true;
 
+  List<PlatformFile>? image;
+  // File? uploadimage;
+
+  final ImagePicker picker = ImagePicker();
   @override
   void initState() {
     getData();
@@ -48,15 +68,71 @@ class _CartPageState extends State<CartPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     if (mounted) {
       setState(() {
-        citie_id = sharedPreferences.getInt("citie_id")!;
+        id = sharedPreferences.getInt("id")!;
+        name = sharedPreferences.getString("name")!;
       });
     }
   }
 
+  void _imagepicker() async {
+    image = (await FilePicker.platform.pickFiles(
+            type: FileType.image,
+            allowMultiple: false,
+            allowedExtensions: null))
+        ?.files;
+    print('Image Picker : ${image!.first.path}');
+  }
+
+  void _uploadImage() async {
+    var uri = Uri.parse(
+        'https://cdd9-180-253-162-136.ap.ngrok.io/api/checkout/payment/');
+    var headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    };
+    var body = jsonEncode({
+      'invoice': "xCCn-1655510312",
+      'order_id': 23,
+      'name': name,
+      'transfer_to': "082228905435",
+      'amount': 57000,
+      // 'proof': request.send(),
+    });
+    var request = http.MultipartRequest('POST', uri);
+    request.files.add(await http.MultipartFile.fromPath(
+        'proof', image!.first.path.toString()));
+    request.fields["invoice"] = "xCCn-1655510312";
+    request.fields["order_id"] = "23";
+    request.fields["name"] = name;
+    request.fields["transfer_to"] = "082228905435";
+    request.fields["amount"] = "57000";
+    var response = await request
+        .send()
+        .then((result) => http.Response.fromStream(result).then((response) {
+              if (response.statusCode == 202) {
+                print(response.body);
+              } else {
+                print("Error during connection to server");
+              }
+            }));
+  }
+
+  // Future<void> getImage(ImageSource media) async {
+  //   var img = await picker.pickImage(source: media);
+
+  //   setState(() {
+  //     image = img;
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
-    CartProvider cartProvider = Provider.of<CartProvider>(context);
-
+    OrderProvider orderProvider = Provider.of<OrderProvider>(context);
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 5),
+      content: Text("Verification Successfully"),
+      backgroundColor: Colors.green,
+    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
@@ -64,32 +140,67 @@ class _CartPageState extends State<CartPage> {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black,
-          iconSize: 22.0,
-          onPressed: () {
-            Navigator.pushNamed(context, '/home');
-          },
-        ),
-        title: Text(
-          "Shopping Cart",
+        title: (Text(
+          "Payment",
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 18.0,
             fontFamily: 'sans-serif-light',
             color: Color.fromRGBO(1, 38, 0, 1),
           ),
-        ),
+        )
+            // margin: const EdgeInsets.only(left: 12, top: 12),
+            ),
+        // Text(
+        //   "Payment",
+        //   style: TextStyle(
+        //     fontWeight: FontWeight.bold,
+        //     fontSize: 18.0,
+        //     fontFamily: 'sans-serif-light',
+        //     color: Color.fromRGBO(1, 38, 0, 1),
+        //   ),
+        // ),
       ),
       body: Builder(
         builder: (context) {
           return ListView(
             children: <Widget>[
               // createHeader(),
-              createSubTitle(),
-              createCartList(),
-              footer(context)
+              image != null
+                  ? Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.file(
+                          //to show image, you type like this.
+                          // File(image!.first.path),
+                          File(image!.first.path.toString()),
+                          fit: BoxFit.cover,
+                          width: MediaQuery.of(context).size.width,
+                          height: 300,
+                        ),
+                      ),
+                    )
+                  : Text(
+                      "No Image",
+                      style: TextStyle(fontSize: 20),
+                    ),
+              ElevatedButton(
+                  onPressed: () {
+                    _imagepicker();
+                  },
+                  child: Text("Choose image payment")),
+              ElevatedButton(
+                  onPressed: () async {
+                    _uploadImage();
+                    // if (await orderProvider.updateOrder(id: 23)) {
+                    //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    // }
+                  },
+                  child: Text("Upload proof of payment"))
+              // createSubTitle(),
+              // createCartList(),
+              // footer(context)
             ],
           );
         },
@@ -132,24 +243,22 @@ class _CartPageState extends State<CartPage> {
             ],
           ),
           Utils.getSizedBox(height: 8, width: 0),
-          cartProvider.carts.length > 0
-              ? RaisedButton(
-                  onPressed: () {
-                    // ongkosKirim();
-                    Navigator.pushNamed(context, '/checkout');
-                  },
-                  color: Colors.green,
-                  padding: const EdgeInsets.only(
-                      top: 12, left: 60, right: 60, bottom: 12),
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(24))),
-                  child: Text(
-                    "Checkout",
-                    style: CustomTextStyle.textFormFieldSemiBold
-                        .copyWith(color: Colors.white),
-                  ),
-                )
-              : Container(),
+          RaisedButton(
+            onPressed: () {
+              // ongkosKirim();
+              Navigator.pushNamed(context, '/checkout');
+            },
+            color: Colors.green,
+            padding:
+                const EdgeInsets.only(top: 12, left: 60, right: 60, bottom: 12),
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(24))),
+            child: Text(
+              "Checkout",
+              style: CustomTextStyle.textFormFieldSemiBold
+                  .copyWith(color: Colors.white),
+            ),
+          ),
           Utils.getSizedBox(height: 8, width: 0),
         ],
       ),
@@ -176,13 +285,13 @@ class _CartPageState extends State<CartPage> {
                       color: Colors.black,
                       iconSize: 22.0,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/home');
+                        // Navigator.of(context).asd(context, '/home');
                       },
                     ),
                     const Padding(
-                      padding: EdgeInsets.only(left: 5.0, top: 9.0),
+                      padding: EdgeInsets.only(left: 5.0, top: 14.0),
                       child: Text(
-                        "Shopping Cart",
+                        "Payment",
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.0,
@@ -248,7 +357,7 @@ class _CartPageState extends State<CartPage> {
                     color: Colors.blue.shade200,
                     image: DecorationImage(
                         image: NetworkImage(
-                          "https://cdd9-180-253-162-136.ap.ngrok.io/storage/products/" +
+                          "https://c43e-180-253-161-138.ap.ngrok.io/storage/products/" +
                               cart.product!.image.toString(),
                         ),
                         fit: BoxFit.cover)),

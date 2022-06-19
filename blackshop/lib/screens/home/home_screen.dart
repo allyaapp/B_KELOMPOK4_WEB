@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
             icon: const Icon(Icons.shopping_cart),
             iconSize: 20,
             onPressed: () async {
-              print(sharedPreferences.getInt("id").toString());
+              // print(sharedPreferences.getInt("id").toString());
               await Provider.of<CartProvider>(context, listen: false)
                   .getCart(id: sharedPreferences.getInt("id").toString());
               Navigator.pushNamed(context, '/cart');
@@ -139,7 +139,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               Categories(),
               const NewArrivalProducts(),
-              const PopularProducts(),
+              // const PopularProducts(),
             ],
           ),
         ),

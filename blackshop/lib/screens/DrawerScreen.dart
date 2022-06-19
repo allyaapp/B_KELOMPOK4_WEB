@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:blackshop/screens/HistoryPage.dart';
+import 'package:blackshop/screens/UploadProofPembayaran.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -60,7 +62,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                  image: NetworkImage(profile), fit: BoxFit.fill)),
+                  image: new NetworkImage(profile),
+                  // (profile != null)
+                  //     ? NetworkImage(profile)
+                  //     : NetworkImage(
+                  //         "https://www.woolha.com/media/2020/03/flutter-circleavatar-radius.jpg",
+                  // ),
+                  fit: BoxFit.contain)),
           // child: Image.network(
           //   profile,
           //   // width: 80,
@@ -121,7 +129,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
         DrawerListTile(
           iconData: Icons.history,
           title: "History",
-          onTilePressed: () {},
+          onTilePressed: () {
+            Navigator.pushNamed((context), '/history');
+          },
         ),
         DrawerListTile(
           iconData: Icons.logout,

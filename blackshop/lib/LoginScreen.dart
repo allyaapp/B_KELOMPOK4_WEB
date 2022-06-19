@@ -4,6 +4,7 @@ import 'package:blackshop/models/LoginModels.dart';
 import 'package:blackshop/network/ApiLogin.dart';
 import 'package:blackshop/providers/AddtoCartProvider.dart';
 import 'package:blackshop/providers/CartProvider.dart';
+import 'package:blackshop/providers/OrderProvider.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
@@ -63,7 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
     var jsonData = null;
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var response = await http.post(
-        Uri.parse("https://c43e-180-253-161-138.ap.ngrok.io/api/login"),
+        Uri.parse("https://cdd9-180-253-162-136.ap.ngrok.io/api/login"),
         body: data);
     if (response.statusCode == 200) {
       jsonData = json.decode(response.body);
@@ -84,6 +85,10 @@ class _LoginScreenState extends State<LoginScreen> {
             "address", jsonData['data']['user']['address']);
         Provider.of<CartProvider>(context, listen: false)
             .getCart(id: jsonData['data']['user']['id'].toString());
+        Provider.of<OrderProvider>(context, listen: false)
+            .getOrder(id: jsonData['data']['user']['id'].toString());
+        Provider.of<OrderProvider>(context, listen: false)
+            .getOrderDone(id: jsonData['data']['user']['id'].toString());
 
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(builder: (BuildContext context) => HomeScreen()),

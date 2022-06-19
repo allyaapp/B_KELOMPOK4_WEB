@@ -30,7 +30,7 @@ class _CategoriesState extends State<Categories> {
         scrollDirection: Axis.horizontal,
         itemCount: categoryProvider.category.length,
         itemBuilder: (context, index) => CategoryCard(
-          icon: "https://c43e-180-253-161-138.ap.ngrok.io/storage/kategori/" +
+          icon: "https://cdd9-180-253-162-136.ap.ngrok.io/storage/kategori/" +
               categoryProvider.category[index].image.toString(),
           // title: categoryProvider.category[index].name.toString(),
           title: categoryProvider.category[index].name.toString(),

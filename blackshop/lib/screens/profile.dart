@@ -15,6 +15,7 @@ class MapScreenState extends State<ProfilePage>
   String name = "";
   String profile = "";
   String email = "";
+  String phonenumber = "";
 
   @override
   void initState() {
@@ -30,8 +31,7 @@ class MapScreenState extends State<ProfilePage>
         name = sharedPreferences.getString("name")!;
         profile = sharedPreferences.getString("profile")!;
         email = sharedPreferences.getString("email")!;
-
-        // name = sharedPreferences.getStringList("name")
+        phonenumber = sharedPreferences.getString("phone_number")!;
       });
     }
   }
@@ -260,8 +260,8 @@ class MapScreenState extends State<ProfilePage>
                                 children: <Widget>[
                                   Flexible(
                                     child: TextField(
-                                      decoration: const InputDecoration(
-                                          hintText: "Your phone"),
+                                      decoration: InputDecoration(
+                                          hintText: phonenumber),
                                       enabled: !_status,
                                     ),
                                   ),

@@ -2,6 +2,9 @@ import 'dart:convert';
 import 'package:blackshop/LoginScreen.dart';
 import 'package:blackshop/models/CartModels.dart';
 import 'package:blackshop/providers/CartProvider.dart';
+import 'package:blackshop/providers/OrderProvider.dart';
+import 'package:blackshop/screens/HistoryPage.dart';
+import 'package:blackshop/screens/UploadProofPembayaran.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:money_formatter/money_formatter.dart';
@@ -18,6 +21,7 @@ class CheckOutPage extends StatefulWidget {
 class _CheckOutPageState extends State<CheckOutPage> {
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
   late SharedPreferences sharedPreferences;
+  int id = 0;
   String name = "";
   String phone_number = "";
   String address = "";
@@ -45,6 +49,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       setState(() {
+        id = sharedPreferences.getInt("id")!;
         name = sharedPreferences.getString("name")!;
         phone_number = sharedPreferences.getString("phone_number")!;
         address = sharedPreferences.getString("address")!;
@@ -112,6 +117,14 @@ class _CheckOutPageState extends State<CheckOutPage> {
 
   @override
   Widget build(BuildContext context) {
+    OrderProvider orderProvider = Provider.of<OrderProvider>(context);
+    CartProvider cartProvider = Provider.of<CartProvider>(context);
+    int subtotal = 0;
+    for (int i = 0; i < cartProvider.carts.length; i++) {
+      subtotal +=
+          (cartProvider.carts[i].cartPrice! * cartProvider.carts[i].qty!);
+    }
+    int cost = subtotal + price;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -125,8 +138,10 @@ class _CheckOutPageState extends State<CheckOutPage> {
                 Icons.arrow_back,
                 color: Colors.black,
               ),
-              onPressed: () {
-                Navigator.pop(context);
+              onPressed: () async {
+                await Provider.of<CartProvider>(context, listen: false)
+                    .getCart(id: sharedPreferences.getInt("id").toString());
+                Navigator.pushNamed(context, '/cart');
               }),
           title: Text(
             "Checkout",
@@ -159,10 +174,20 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   child: RaisedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      if (await orderProvider.addOrder(
+                          customerId: id.toString(),
+                          shipping: value,
+                          subtotal: subtotal.toString(),
+                          cost: cost.toString())) {
+                        // print('okok');
+                        showThankYouBottomSheet(context);
+                      } else {
+                        Text("Place Order Failed");
+                        // print('false');
+                      }
                       /*Navigator.of(context).push(new MaterialPageRoute(
                           builder: (context) => OrderPlacePage()));*/
-                      showThankYouBottomSheet(context);
                     },
                     child: Text(
                       "Place Order",
@@ -226,10 +251,17 @@ class _CheckOutPageState extends State<CheckOutPage> {
                       height: 24,
                     ),
                     RaisedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // Navigator.pushReplacementNamed(context, "/history");
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => HistoryPage()),
+                        );
+                      },
                       padding: EdgeInsets.only(left: 48, right: 48),
                       child: Text(
-                        "Track Order",
+                        "Payment Confirmation",
                         style: CustomTextStyle.textFormFieldMedium
                             .copyWith(color: Colors.white),
                       ),
@@ -481,7 +513,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                     Container(
                       child: Image(
                         image: NetworkImage(
-                          "https://a1bd-180-253-165-54.ap.ngrok.io/storage/products/" +
+                          "https://cdd9-180-253-162-136.ap.ngrok.io/storage/products/" +
                               e.product!.image.toString(),
                         ),
                         width: 35,

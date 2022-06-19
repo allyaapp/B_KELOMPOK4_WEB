@@ -44,7 +44,12 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     AddtoCartProvider addtocartProvider =
         Provider.of<AddtoCartProvider>(context);
-    print(widget.product.image);
+    final snackBar = SnackBar(
+      duration: const Duration(seconds: 5),
+      content: Text("Product added to cart successfully"),
+      backgroundColor: Colors.green,
+    );
+    // print(widget.product.image);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -70,7 +75,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         child: Column(
           children: [
             Image.network(
-              "https://c43e-180-253-161-138.ap.ngrok.io/storage/products/" +
+              "https://cdd9-180-253-162-136.ap.ngrok.io/storage/products/" +
                   widget.product.image.toString(),
               height: MediaQuery.of(context).size.height * 0.4,
               fit: BoxFit.cover,
@@ -167,6 +172,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               cartPrice: widget.product.price.toString(),
                               cartWeight: widget.product.weight.toString(),
                             );
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           },
                           style: ElevatedButton.styleFrom(
                               primary: primaryColor,

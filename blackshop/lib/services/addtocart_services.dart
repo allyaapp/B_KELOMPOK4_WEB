@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:blackshop/models/AddtoCartModels.dart';
 
 class AddtoCartService {
-  String baseUrl = "https://c43e-180-253-161-138.ap.ngrok.io/api";
+  String baseUrl = "https://cdd9-180-253-162-136.ap.ngrok.io/api";
   // var url = '$baseUrl/addtocart?customer_id=$id';
 
   Future<AddtoCartModels> addCart({

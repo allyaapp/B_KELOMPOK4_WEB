@@ -43,15 +43,15 @@ class _SeeAllProductPageState extends State<SeeAllProductPage> {
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        bottom: PreferredSize(
-            child: filterSortListOption(),
-            preferredSize: const Size(double.infinity, 44)),
+        // bottom: PreferredSize(
+        //     child: filterSortListOption(),
+        //     preferredSize: const Size(double.infinity, 44)),
         title: Text(
           "Blackshop Products",
           style: CustomTextStyle.textFormFieldBold.copyWith(fontSize: 16),
         ),
         elevation: 1,
-        centerTitle: true,
+        // centerTitle: true,
         // actions: <Widget>[
         //   Image(
         //     image: AssetImage("images/ic_search.png"),

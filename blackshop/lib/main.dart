@@ -8,13 +8,16 @@ import 'package:blackshop/providers/AddtoCartProvider.dart';
 import 'package:blackshop/providers/CartProvider.dart';
 import 'package:blackshop/providers/CategoryProvider.dart';
 import 'package:blackshop/providers/DetailCategoryProvider.dart';
+import 'package:blackshop/providers/OrderProvider.dart';
 import 'package:blackshop/providers/ProductProvider.dart';
 import 'package:blackshop/providers/RegisterProvider.dart';
 import 'package:blackshop/providers/UserProvider.dart';
 import 'package:blackshop/screens/CartPage.dart';
 import 'package:blackshop/screens/CheckOutPage.dart';
 import 'package:blackshop/screens/DetailCategoryProduct.dart';
+import 'package:blackshop/screens/HistoryPage.dart';
 import 'package:blackshop/screens/SearchPage.dart';
+import 'package:blackshop/screens/UploadProofPembayaran.dart';
 import 'package:blackshop/screens/home/home_screen.dart';
 import 'package:blackshop/screens/profile.dart';
 import 'package:blackshop/screens/splashScreen.dart';
@@ -44,6 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => AddtoCartProvider()),
         ChangeNotifierProvider(create: (context) => DetailCategoryProvider()),
+        ChangeNotifierProvider(create: (context) => OrderProvider()),
       ],
       child: MaterialApp(
         title: 'Blackshop',
@@ -63,6 +67,8 @@ class MyApp extends StatelessWidget {
           "/cart": (context) => CartPage(),
           "/checkout": (context) => CheckOutPage(),
           "/search": (context) => SearchPage(),
+          "/payment": (context) => UploadProofPembayaran(),
+          "/history": (context) => HistoryPage(),
         },
       ),
     );

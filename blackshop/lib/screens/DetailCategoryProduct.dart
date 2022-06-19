@@ -55,7 +55,7 @@ class _DetailCategoryProductPageState extends State<DetailCategoryProductPage> {
           style: CustomTextStyle.textFormFieldBold.copyWith(fontSize: 16),
         ),
         elevation: 1,
-        centerTitle: true,
+        // centerTitle: true,
         // actions: <Widget>[
         //   Image(
         //     image: AssetImage("images/ic_search.png"),
